@@ -41,7 +41,8 @@ Avera App mendukung:
 
 > Berikut diagram tabel Avera App (produk, toko, order, user, review, promo, banner):
 
-![Database Schema](https://github.com/user-attachments/assets/cab53e4c-866f-49ba-81d4-3dbceee593a0)
+![Database Schema](https://github.com/user-attachments/assets/5bd62362-df8b-46b5-9add-702e4f9717db)
+
 
 **Penjelasan tabel utama:**
 - **users**: data user termasuk nama, email, role (buyer, seller)  
