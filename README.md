@@ -19,7 +19,7 @@ Avera App mendukung:
 ## 2. Fitur Utama
 - **Frontend (Next.js + TypeScript)**
   - Product listing, detail, carousel, filter
-  - Cart management (Zustand)
+  - Cart management
   - Checkout & Midtrans integration
   - Responsive UI dengan Tailwind CSS
 - **Backend**
