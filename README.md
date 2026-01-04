@@ -30,10 +30,12 @@ Avera App mendukung:
 ---
 
 ## 3. Arsitektur Monorepo
-/my-ecommerce-monorepo
-├─ /avera-be
-├─ /avera-fe
-└─ README.md
+<ul>
+<li>/Avera</li>
+<li>├─ /avera-be</li>
+<li>├─ /avera-fe</li>
+<li>└─ README.md</li>
+</ul>
 
 ## 4. Database Schema
 
