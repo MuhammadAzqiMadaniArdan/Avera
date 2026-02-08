@@ -72,17 +72,17 @@ Aplikasi ini menggunakan **Next.js (TypeScript)** untuk frontend dan **Laravel 1
 
 ## 4. Teknologi yang Digunakan
 
-| Layer         | Teknologi                                      |
-| ------------- | ---------------------------------------------- |
-| Frontend      | Next.js, TypeScript, Tailwind CSS, React Query |
-| Backend       | Laravel 11, PHP 8.3-FPM, Redis (Predis)        |
-| Database      | PostgreSQL 15                                  |
-| Caching/Queue | Redis (Predis)                                 |
-| Payments      | Midtrans (Snap token, COD)                     |
-| Shipping      | RajaOngkir API                                 |
-| Moderation    | Sightengine (image moderation)                 |
-| Container     | Docker, Docker Compose                         |
-| Testing       | PHPUnit (Feature & Unit test)                  |
+| Layer         | Teknologi                                              |
+| ------------- | -------------------------------------------------------|
+| Frontend      | Next.js, TypeScript, Tailwind CSS, Shadcn, React Query |
+| Backend       | Laravel 11, PHP 8.3-FPM, Redis (Predis)                |
+| Database      | PostgreSQL 15                                          |
+| Caching/Queue | Redis (Predis)                                         |
+| Payments      | Midtrans (Snap token, COD)                             |
+| Shipping      | RajaOngkir API                                         |
+| Moderation    | Sightengine (image moderation)                         |
+| Container     | Docker, Docker Compose                                 |
+| Testing       | PHPUnit (Feature & Unit test)                          |
 
 ---
 
