@@ -1,8 +1,8 @@
-<div style="flex justify-between">
+<div style="display: flex; justify-content: space-between; align-items: center;">
   <h1># Avera App</h1>
-<img width="149" height="170" alt="avera-logo-new" src="https://github.com/user-attachments/assets/becaabad-f916-40b8-b108-61df81d89e05" />
-  
-</div> 
+  <img width="149" height="170" alt="avera-logo-new" src="https://github.com/user-attachments/assets/becaabad-f916-40b8-b108-61df81d89e05" />
+</div>
+
 
 ## License
 
