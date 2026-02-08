@@ -163,9 +163,9 @@ Aplikasi ini menggunakan **Next.js (TypeScript)** untuk frontend dan **Laravel 1
 **Diagram Tabel Akhir:**
 
 
-> Berikut diagram tabel Avera App (produk, toko, order, user, review, promo, banner):
+> Berikut diagram tabel Avera App :
 
-![Database Schema](https://github.com/user-attachments/assets/5bd62362-df8b-46b5-9add-702e4f9717db)
+![Database Schema](https://github.com/user-attachments/assets/ed64a337-e24a-4f82-b94d-e1de1fc1b427)
 
 
 ```
