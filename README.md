@@ -1,8 +1,9 @@
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <h1># Avera App</h1>
-  <img width="149" height="170" alt="avera-logo-new" src="https://github.com/user-attachments/assets/becaabad-f916-40b8-b108-61df81d89e05" />
-</div>
+<div align="center" style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 800px; margin: auto;">
 
+<h1 style="margin: 0;"># Avera App</h1>
+<img width="149" height="170" alt="avera-logo-new" src="https://github.com/user-attachments/assets/becaabad-f916-40b8-b108-61df81d89e05" />
+
+</div>
 
 ## License
 
@@ -246,7 +247,7 @@ php artisan db:seed
 ### 6.6. Akses aplikasi
 
 * Frontend: `http://localhost:3000`
-* Backend API: `http://localhost:8000/api/v1`
+* Backend API: `http://localhost:8001/api/v1`
 
 ---
 
@@ -276,19 +277,14 @@ POST /api/v1/checkout/{checkout_id}/place-order
 ### Payment
 
 ```http
-GET /api/v1/payment/{order_id}/status
+  POST /api/v1/order/payment/callback
 ```
 
-### Shipping
-
-```http
-GET /api/v1/shipments/cost?origin=...&destination=...
-```
 
 ### Moderation (image upload)
 
 ```http
-POST /api/v1/products/{id}/upload-image
+POST /api/v1/seller/product/image
 # otomatis dicek menggunakan Sightengine API
 ```
 
@@ -334,5 +330,5 @@ User uploads product image → Sightengine moderation → Approved / Rejected
 **Ongkir Flow:**
 
 ```
-User enters address → RajaOngkir API calculates cost → Checkout
+User selects product → Add to Cart → Checkout → RajaOngkir API calculates cost → Checkout Page
 ```
