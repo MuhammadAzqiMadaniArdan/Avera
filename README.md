@@ -85,19 +85,82 @@ Aplikasi ini menggunakan **Next.js (TypeScript)** untuk frontend dan **Laravel 1
 
 **Tabel Utama:**
 
-* **users**: data user, roles (`buyer`, `seller`, `admin`)
-* **stores**: data toko, satu user bisa punya satu toko
-* **products**: daftar produk, bisa lebih dari satu image
-* **orders**: data order + status (`pending`, `awaiting_payment`, `shipped`, `completed`)
-* **order_items**: detail tiap produk dalam order
-* **cart_items**: keranjang user
-* **reviews**: review produk & order
-* **promos**: kode voucher dan diskon
-* **banners**: gambar banner homepage / toko
-* **payments**: data transaksi (Midtrans / COD)
-* **shipments**: estimasi ongkir & tracking
 
-**Diagram Tabel Sederhana:**
+### **users**
+- Menyimpan data pengguna aplikasi.
+- Role: `buyer`, `seller`, `admin`.
+
+### **stores**
+- Menyimpan data toko.
+- Satu user bisa memiliki **satu toko**.
+- Relasi: `products`, `store_vouchers`, `banners`.
+
+### **products**
+- Menyimpan daftar produk.
+- Bisa memiliki lebih dari satu gambar (relasi ke tabel `images`).
+- Bisa masuk dalam `promotions` atau `campaigns`.
+
+### **orders**
+- Menyimpan data order dari user.
+- Menyertakan subtotal, shipping cost, total price.
+- Status: `pending`, `awaiting_payment`, `paid`, `processing`, `shipped`, `completed`, `cancelled`.
+
+### **order_items**
+- Detail tiap produk dalam order.
+- Termasuk: quantity, price, discount, weight, voucher yang digunakan.
+
+### **cart_items**
+- Menyimpan data produk di keranjang user.
+- Mempermudah proses checkout.
+
+### **reviews**
+- Menyimpan ulasan dan rating produk.
+- Bisa terkait ke `order_item` untuk produk yang sudah dibeli.
+
+### **promotions / promotion_products**
+- Menyimpan data promo toko: `product_discount`, `bundle`, `combo`.
+- Menyimpan produk yang termasuk dalam promo.
+
+### **store_vouchers / campaign_vouchers / user_vouchers**
+- Menyimpan data voucher: `cashback`, `discount`, `free_shipping`.
+- Relasi ke toko/campaign dan user yang mengklaim voucher.
+
+### **banners / banner_images**
+- Menyimpan banner homepage, kategori, promo, toko, atau admin.
+- Bisa memiliki multiple images dengan urutan dan status moderasi.
+
+### **checkouts / checkout_items / checkout_shipments**
+- Menyimpan data sementara sebelum menjadi order.
+- Termasuk produk, harga, ongkir, voucher, promo, dan pilihan kurir.
+
+### **payments**
+- Menyimpan data transaksi.
+- Metode: `COD` atau payment gateway (misal: Midtrans).
+- Menyimpan status pembayaran dan informasi gateway.
+
+### **shipments**
+- Menyimpan data pengiriman order.
+- Termasuk kurir, service, estimasi hari, tracking number, recipient info, dan status pengiriman.
+
+### **invoices**
+- Menyimpan data invoice untuk setiap order.
+- Termasuk nomor invoice, tanggal diterbitkan, due date, status pembayaran, total amount.
+
+### **chats**
+- Menyimpan pesan antara user (buyer-seller) untuk komunikasi terkait order.
+
+### **courier_slas**
+- Menyimpan estimasi waktu pengiriman (SLAs) untuk masing-masing kurir yang aktif.
+
+---
+
+## Catatan
+- Tabel `images` menyimpan file gambar untuk `products`, `stores`, `users`, `banners`, dan kategori.
+- Tabel `user_addresses` dan `store_addresses` menyimpan detail alamat lengkap, termasuk provinsi, kota, distrik, dan desa, menggunakan data `rajaongkir`.
+- Moderation dilakukan pada `images` dan `banners` untuk memastikan konten sesuai aturan.
+
+
+**Diagram Tabel Akhir:**
 
 
 > Berikut diagram tabel Avera App (produk, toko, order, user, review, promo, banner):
