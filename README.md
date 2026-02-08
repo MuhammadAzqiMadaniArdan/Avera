@@ -250,7 +250,7 @@ php artisan test
 
 ---
 
-## 10. Screenshot & Flow (Portfolio-ready)
+## 10. Screenshot & Flow
 
 **Order Flow:**
 
