@@ -1,5 +1,8 @@
-# Avera App 
-<img width="full" height="170" alt="A (3)" src="https://github.com/user-attachments/assets/7d1bb2a1-70ae-4937-b4eb-929d3e29f893" />
+<div style="flex justify-between">
+  <h1># Avera App</h1>
+<img width="149" height="170" alt="avera-logo-new" src="https://github.com/user-attachments/assets/becaabad-f916-40b8-b108-61df81d89e05" />
+  
+</div> 
 
 ## License
 
