@@ -1,4 +1,5 @@
-# Avera App
+# Avera App 
+<img width="full" height="170" alt="A (3)" src="https://github.com/user-attachments/assets/7d1bb2a1-70ae-4937-b4eb-929d3e29f893" />
 
 ## License
 
