@@ -56,6 +56,16 @@ return [
             'throw' => false,
         ],
 
+        'cloudinary' => [
+            'driver' => 'cloudinary', 
+            'key' => env('CLOUDINARY_API_KEY'), 
+            'secret' => env('CLOUDINARY_API_SECRET'), 
+            'cloud' => env('CLOUDINARY_CLOUD_NAME'), 
+            'url' => env('CLOUDINARY_CLOUD_URL'), 
+            'secure' => (bool) env('CLOUDINARY_API_SECURE',true), 
+            'prefix' => env('CLOUDINARY_PREFIX'), 
+        ]
+
     ],
 
     /*

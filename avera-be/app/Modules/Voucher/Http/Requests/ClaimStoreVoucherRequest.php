@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Modules\Voucher\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ClaimStoreVoucherRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'voucher_id' => 'required|exists:store_vouchers,id'
+        ];
+    }
+}

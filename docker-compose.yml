@@ -1,0 +1,77 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./avera-be/docker/php
+      dockerfile: Dockerfile
+    image: avera-backend
+    container_name: avera-backend
+    working_dir: /var/www
+    volumes:
+      - ./avera-be:/var/www
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+      - redis
+    environment:
+      # Redis config
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DB: 0
+      REDIS_CACHE_DB: 1
+      REDIS_CLIENT: predis
+    networks:
+      - avera-network
+
+  frontend:
+    build:
+      context: ./avera-fe
+      dockerfile: Dockerfile
+    image: avera-frontend
+    container_name: avera-frontend
+    working_dir: /app
+    volumes:
+      - ./avera-fe:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1/
+    networks:
+      - avera-network
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:15-alpine
+    container_name: avera-postgres
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - avera-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: avera-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - avera-network
+    volumes:
+      - redisdata:/data
+    command: ["redis-server", "--appendonly", "yes"]
+
+networks:
+  avera-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+  redisdata:

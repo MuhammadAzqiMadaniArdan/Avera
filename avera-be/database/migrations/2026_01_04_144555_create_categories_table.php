@@ -12,13 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('image_id')->nullable();
+            $table->foreignUuid('parent_id')->nullable();
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->boolean('allows_adult_content')->default(false);
             $table->text('description')->nullable();
-            $table->foreignId('parent_id')->nullable()->constrained('categories')->cascadeOnDelete();
+            $table->enum('status',['active','inactive']);
             $table->timestamps();
             $table->softDeletes();
+        });
+        Schema::table('categories',function (Blueprint $table) {
+            $table->foreign('image_id')->references('id')->on('images')->nullOnDelete();
+            $table->foreign('parent_id')->references('id')->on('categories')->nullOnDelete();
         });
     }
 

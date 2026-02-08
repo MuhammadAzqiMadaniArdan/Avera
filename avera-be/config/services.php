@@ -31,4 +31,16 @@ return [
         ],
     ],
 
+    'identity' =>  [
+        'client_id' => env('AVERA_BE_CLIENT_ID'),
+        'client_secret' => env('AVERA_BE_CLIENT_SECRET'),
+        'issuer' => env('IDENTITY_ISSUER', 'http://127.0.0.1:8000'), // yang menerbitkan token
+        'public_key' => env('IDENTITY_PUBLIC_KEY'),
+        'audience' => env('IDENTITY_AUDIENCE', 'avera-api'), // token digunakan untuk apa
+    ],
+
+    'google' => [
+        'vision_credentials' => env('GOOGLE_APPLICATION_CREDENTIALS')
+    ],
+
 ];

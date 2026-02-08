@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->decimal('total_price',12,2);
-            $table->enum('status',['pending','paid','shipped','complete','cancelled'])->default('pending');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained()->nullOnDelete();
+            $table->decimal('subtotal', 12, 2)->default(0);
+            $table->decimal('shipping_cost', 12, 2)->default(0);
+            $table->decimal('total_price', 12, 2)->default(0);
+            $table->enum('status',['pending','awaiting_payment','paid','processing','shipped','completed','cancelled'])->default('pending');
             $table->timestamps();
         });
     }
