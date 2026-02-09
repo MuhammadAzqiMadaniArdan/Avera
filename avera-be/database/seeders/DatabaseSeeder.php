@@ -26,30 +26,36 @@ class DatabaseSeeder extends Seeder
         /**
          * 1️⃣ CATEGORY DULU (WAJIB)
          */
-        $mainCategories = Category::factory()
-            ->count(24)
-            ->create()
-            ->each(function (Category $category) {
+        // $mainCategories = Category::factory()
+        //     ->count(24)
+        //     ->create()
+        //     ->each(function (Category $category) {
 
-                $image = Image::factory()->create([
-                    'owner_type' => 'category',
-                    'owner_id' => $category->id,
-                ]);
+        //         $image = Image::factory()->create([
+        //             'owner_type' => 'category',
+        //             'owner_id' => $category->id,
+        //         ]);
 
-                $category->update([
-                    'image_id' => $image->id,
-                ]);
-            });
+        //         $category->update([
+        //             'image_id' => $image->id,
+        //         ]);
+        //     });
 
-        $subCategories = $mainCategories->flatMap(
-            fn($cat) =>
-            Category::factory()->count(2)->create([
-                'parent_id' => $cat->id,
-                'image_id' => null, // eksplisit biar jelas
-            ])
-        );
+        // $subCategories = $mainCategories->flatMap(
+        //     fn($cat) =>
+        //     Category::factory()->count(2)->create([
+        //         'parent_id' => $cat->id,
+        //         'image_id' => null, // eksplisit biar jelas
+        //     ])
+        // );
 
-        $allCategories = $mainCategories->merge($subCategories);
+        // $allCategories = $mainCategories->merge($subCategories);
+
+        $this->call([
+            CategorySeeder::class
+        ]);
+
+        $allCategories = Category::all();
 
         /**
          * 2️⃣ USERS

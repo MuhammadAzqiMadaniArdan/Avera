@@ -23,7 +23,7 @@ class OrderFactory extends Factory
             'total_price' => function(array $attrs) {
                 return $attrs['subtotal'] + $attrs['shipping_cost'];
             },
-            'status' => $this->faker->randomElement(['pending','cod_pending','paid','shipped','complete','cancelled']),
+            'status' => $this->faker->randomElement(['pending','awaiting_payment','paid','processing','shipped','completed','cancelled']),
             'created_at' => now(),
             'updated_at' => now(),
         ];

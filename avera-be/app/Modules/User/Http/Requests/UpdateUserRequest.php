@@ -25,7 +25,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string|min:3|max:255',
-            'username' => ['sometimes|string|min:3|max:30',Rule::unique('users','username')->ignore(AuthHelper::uuid($this),'identity_core_id')],
+            'username' => 'sometimes|string|min:3|max:30|unique:users,username',
             'gender' => 'sometimes|in:male,female,other',
             'phone_number' => 'sometimes|regex:/^\+?[0-9]{10,15}$/',
         ];

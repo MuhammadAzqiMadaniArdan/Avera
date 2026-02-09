@@ -24,16 +24,18 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getParent(): Collection
     {
         $version = $this->versionKey('categories');
-        return Cache::remember(
-            "categories:list:parent:v{$version}",
-            now()->addHours(1),
-            fn() => $this->model->query()
+        return 
+        // Cache::remember(
+            // "categories:list:parent:v{$version}",
+            // now()->addHours(1),
+            // fn() => 
+            $this->model->query()
                 ->where('status', 'active')
                 ->whereNull('parent_id')
                 ->with('image')
                 ->orderBy('name', 'ASC')
-                ->get()
-        );
+                ->get();
+        // );
     }
     public function getTree(): Collection
     {

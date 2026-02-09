@@ -15,6 +15,7 @@ use App\Modules\Store\Policies\StorePolicy;
 use App\Modules\User\Models\User;
 use App\Modules\User\Models\UserAddress;
 use App\Modules\User\Policies\UserAddressPolicy;
+use App\Modules\User\Policies\UserPolicy;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
@@ -65,6 +66,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Product::class, ProductPolicy::class);
         Gate::policy(Checkout::class, CheckoutPolicy::class);
         Gate::policy(UserAddress::class, UserAddressPolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
 
         $this->app->singleton(Authenticatable::class, function ($app) {
             $request = $app->make(Request::class);

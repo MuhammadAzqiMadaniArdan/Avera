@@ -134,9 +134,9 @@ Route::middleware(['oauth.jwt', 'ensure.user', 'throttle:api'])->group(function 
             Route::patch('/', [ProductSellerController::class, 'publish'])->name('publish');
             Route::delete('/', [ProductSellerController::class, 'destroy'])->name('destroy');
             Route::prefix('image')->name('image.')->middleware('throttle:image_upload')->group(function () {
-                Route::post('/images', [ProductImageController::class, 'store'])->name('store');
-                Route::patch('/{productImageId}/images', [ProductImageController::class, 'replace'])->name('update');
-                Route::delete('/{productImageId}/images', [ProductImageController::class, 'destroy'])->name('destroy');
+                Route::post('/', [ProductImageController::class, 'store'])->name('store');
+                Route::patch('/{productImageId}', [ProductImageController::class, 'replace'])->name('update');
+                Route::delete('/{productImageId}', [ProductImageController::class, 'destroy'])->name('destroy');
             });
         });
         Route::prefix('store')->name('store.')->group(function () {

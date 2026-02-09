@@ -8,119 +8,72 @@ use Illuminate\Support\Facades\DB;
 
 class CategorySeeder extends Seeder
 {
-    public function run(): void
+ public function run(): void
     {
-        // ===== Parent Categories =====
-        $electronicsId = Str::uuid();
-        $fashionId     = Str::uuid();
-        $homeId        = Str::uuid();
+        $categories = [
+            'Automotive',
+            'Baby & Kids Fashion',
+            'Beauty & Care',
+            'Computer & Accessories',
+            // 'Deals Nearby',
+            'Electronics',
+            'Fashion Accessories',
+            'Food & Beverages',
+            'Health',
+            'Hobby & Collection',
+            'Home & Living',
+            'Men Bags',
+            'Men Clothes',
+            'Men Shoes',
+            'Mobile & Accessories',
+            'Mom & Baby',
+            // 'Muslim Fashion',
+            'Photography',
+            'Souvenir & Party Supplies',
+            'Sports & Outdoor',
+            'Stationery & Books',
+            // 'Vouchers',
+            'Watches',
+            // 'Women Bags',
+            // 'Women Clothes',
+            // 'Women Shoes',
+        ];
 
-        DB::table('categories')->insert([
-            [
-                'id' => $electronicsId,
-                'image_id' => null,
+        foreach ($categories as $name) {
+            $slug = Str::slug($name)."-icon";
+            $categoryId = Str::uuid();
+            $imageId = Str::uuid();
+
+            // Insert image placeholder
+            DB::table('images')->insert([
+                'id' => $imageId,
+                'owner_type' => 'category',
+                'owner_id' => $categoryId,
+                'disk' => 'cloudinary', // atau 'cloudinary'
+                'path' => "{$slug}.png", // nama file sesuai slug
+                'mime_type' => 'image/png',
+                'size' => 0,
+                'width' => 200,
+                'height' => 200,
+                'hash' => hash('sha256', $slug),
+                'moderation_status' => 'approved',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // Insert category
+            DB::table('categories')->insert([
+                'id' => $categoryId,
+                'image_id' => $imageId,
                 'parent_id' => null,
-                'name' => 'Electronics',
-                'slug' => 'electronics',
-                'allows_adult_content' => false,
-                'description' => 'Electronic devices and gadgets',
+                'name' => $name,
+                'slug' => $slug,
                 'status' => 'active',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'id' => $fashionId,
-                'image_id' => null,
-                'parent_id' => null,
-                'name' => 'Fashion',
-                'slug' => 'fashion',
-                'allows_adult_content' => false,
-                'description' => 'Clothing, shoes, and accessories',
-                'status' => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'id' => $homeId,
-                'image_id' => null,
-                'parent_id' => null,
-                'name' => 'Home & Living',
-                'slug' => 'home-living',
-                'allows_adult_content' => false,
-                'description' => 'Furniture and home essentials',
-                'status' => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+            ]);
 
-        // ===== Child Categories =====
-        DB::table('categories')->insert([
-            // Electronics
-            [
-                'id' => Str::uuid(),
-                'image_id' => null,
-                'parent_id' => $electronicsId,
-                'name' => 'Smartphones',
-                'slug' => 'smartphones',
-                'allows_adult_content' => false,
-                'description' => 'Mobile phones and accessories',
-                'status' => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'id' => Str::uuid(),
-                'image_id' => null,
-                'parent_id' => $electronicsId,
-                'name' => 'Laptops',
-                'slug' => 'laptops',
-                'allows_adult_content' => false,
-                'description' => 'Laptops and notebooks',
-                'status' => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            // Fashion
-            [
-                'id' => Str::uuid(),
-                'image_id' => null,
-                'parent_id' => $fashionId,
-                'name' => 'Men Fashion',
-                'slug' => 'men-fashion',
-                'allows_adult_content' => false,
-                'description' => 'Mens clothing and accessories',
-                'status' => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'id' => Str::uuid(),
-                'image_id' => null,
-                'parent_id' => $fashionId,
-                'name' => 'Women Fashion',
-                'slug' => 'women-fashion',
-                'allows_adult_content' => false,
-                'description' => 'Womens clothing and accessories',
-                'status' => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            // Home
-            [
-                'id' => Str::uuid(),
-                'image_id' => null,
-                'parent_id' => $homeId,
-                'name' => 'Furniture',
-                'slug' => 'furniture',
-                'allows_adult_content' => false,
-                'description' => 'Tables, chairs, sofas',
-                'status' => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+            echo "Category: {$name} -> Slug: {$slug}\n"; // info slug untuk catatan
+        }
     }
 }
