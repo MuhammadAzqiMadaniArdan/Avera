@@ -1,6 +1,6 @@
 <div align="center" style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 800px; margin: auto;">
 
-<div>
+<div style="padding-bottom:20px;">
 <h1 style="margin: 0;">Avera App</h1>
 <img width="149" height="170" alt="avera-logo-new" src="https://github.com/user-attachments/assets/becaabad-f916-40b8-b108-61df81d89e05" />
 </div>
