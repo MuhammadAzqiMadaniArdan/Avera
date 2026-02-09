@@ -1,0 +1,23 @@
+name: CD Avera
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  docker-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - run: docker build -t yourname/avera-backend ./avera-be/docker/php
+      - run: docker build -t yourname/avera-frontend ./avera-fe
+
+      - run: docker push yourname/avera-backend
+      - run: docker push yourname/avera-frontend

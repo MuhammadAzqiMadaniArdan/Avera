@@ -1,0 +1,69 @@
+name: CI Avera
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./avera-be
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: laravel
+          POSTGRES_USER: laravel
+          POSTGRES_PASSWORD: secret
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_pgsql, redis
+          coverage: none
+
+      - run: composer install --no-interaction --prefer-dist
+
+      - run: cp .env.example .env
+
+      - run: php artisan key:generate
+
+      - run: php artisan migrate --force
+
+      - run: php artisan test --testsuite=Feature
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./avera-fe
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - run: npm install
+      - run: npm run build
