@@ -26,6 +26,33 @@ class CreatedOrderCodTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config()->set('rajaongkir.couriers', [
+            'cod' => [
+                'code' => 'cod',
+                'name' => 'Cash on Delivery',
+                'services' => ['COD'],
+            ],
+        ]);
+        config()->set('midtrans.client_key', 'test-key');
+
+        $this->mockShipment();
+    }
+
+    protected function mockShipment(): void
+    {
+        $this->mock(\App\Modules\Order\Services\ShipmentService::class, function ($mock) {
+            $mock->shouldReceive('createShipment')
+                ->andReturn([
+                    'tracking_number' => 'TEST123',
+                    'status' => 'pending',
+                ]);
+        });
+    }
+
     public function test_user_can_create_cod_order_with_address(): void
     {
         /**

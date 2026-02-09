@@ -91,7 +91,6 @@ class CheckoutOrderService
 
                 $this->cartRepository->delete($cartItem);
             }
-            Log::info("shipmentmu", [$checkout->shipments]);
 
             $selectedShipments = $checkout->shipments
                 ->where('user_address_id', $checkout->user_address_id)
