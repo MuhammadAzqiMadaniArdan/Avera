@@ -2,6 +2,7 @@
 
 <h1 style="margin: 0;"># Avera App</h1>
 <img width="149" height="170" alt="avera-logo-new" src="https://github.com/user-attachments/assets/becaabad-f916-40b8-b108-61df81d89e05" />
+<img width="1920" height="5295" alt="Homepage" src="https://github.com/user-attachments/assets/7372c6a5-cd48-4896-aab5-1910974aab6f" />
 
 </div>
 
