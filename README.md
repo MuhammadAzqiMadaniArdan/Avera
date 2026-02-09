@@ -3,9 +3,6 @@
 <div style="padding-bottom:20px;">
 <h1 style="margin: 0;">Avera App</h1>
   
-## License
-
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 <img width="149" height="170" alt="avera-logo-new" src="https://github.com/user-attachments/assets/becaabad-f916-40b8-b108-61df81d89e05" />
 </div>
 
@@ -15,6 +12,9 @@
 
 </div>
 
+## License
+
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ---
 
