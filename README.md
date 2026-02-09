@@ -7,7 +7,7 @@
 </div>
 
 <div align="center">
-<img width="500" height="5295" alt="Homepage" src="https://github.com/user-attachments/assets/7372c6a5-cd48-4896-aab5-1910974aab6f" />
+<img width="1920" height="1658" alt="Homepage-top" src="https://github.com/user-attachments/assets/08312343-c986-4d7d-ad40-318f2c5a9ab6" />
 </div>
 
 </div>
