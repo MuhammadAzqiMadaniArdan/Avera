@@ -1,4 +1,16 @@
-# Avera App
+<div align="center" style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 800px; margin: auto;">
+
+<div style="padding-bottom:20px;">
+<h1 style="margin: 0;">Avera App</h1>
+  
+<img width="149" height="170" alt="avera-logo-new" src="https://github.com/user-attachments/assets/becaabad-f916-40b8-b108-61df81d89e05" />
+</div>
+
+<div align="center">
+<img width="1920" height="1658" alt="Homepage-top" src="https://github.com/user-attachments/assets/08312343-c986-4d7d-ad40-318f2c5a9ab6" />
+</div>
+
+</div>
 
 ## License
 
@@ -67,17 +79,17 @@ Aplikasi ini menggunakan **Next.js (TypeScript)** untuk frontend dan **Laravel 1
 
 ## 4. Teknologi yang Digunakan
 
-| Layer         | Teknologi                                      |
-| ------------- | ---------------------------------------------- |
-| Frontend      | Next.js, TypeScript, Tailwind CSS, React Query |
-| Backend       | Laravel 11, PHP 8.3-FPM, Redis (Predis)        |
-| Database      | PostgreSQL 15                                  |
-| Caching/Queue | Redis (Predis)                                 |
-| Payments      | Midtrans (Snap token, COD)                     |
-| Shipping      | RajaOngkir API                                 |
-| Moderation    | Sightengine (image moderation)                 |
-| Container     | Docker, Docker Compose                         |
-| Testing       | PHPUnit (Feature & Unit test)                  |
+| Layer         | Teknologi                                              |
+| ------------- | -------------------------------------------------------|
+| Frontend      | Next.js, TypeScript, Tailwind CSS, Shadcn, React Query |
+| Backend       | Laravel 11, PHP 8.3-FPM, Redis (Predis)                |
+| Database      | PostgreSQL 15                                          |
+| Caching/Queue | Redis (Predis)                                         |
+| Payments      | Midtrans (Snap token, COD)                             |
+| Shipping      | RajaOngkir API                                         |
+| Moderation    | Sightengine (image moderation)                         |
+| Container     | Docker, Docker Compose                                 |
+| Testing       | PHPUnit (Feature & Unit test)                          |
 
 ---
 
@@ -163,9 +175,9 @@ Aplikasi ini menggunakan **Next.js (TypeScript)** untuk frontend dan **Laravel 1
 **Diagram Tabel Akhir:**
 
 
-> Berikut diagram tabel Avera App (produk, toko, order, user, review, promo, banner):
+> Berikut diagram tabel Avera App :
 
-![Database Schema](https://github.com/user-attachments/assets/5bd62362-df8b-46b5-9add-702e4f9717db)
+![Database Schema](https://github.com/user-attachments/assets/ed64a337-e24a-4f82-b94d-e1de1fc1b427)
 
 
 ```
@@ -242,7 +254,7 @@ php artisan db:seed
 ### 6.6. Akses aplikasi
 
 * Frontend: `http://localhost:3000`
-* Backend API: `http://localhost:8000/api/v1`
+* Backend API: `http://localhost:8001/api/v1`
 
 ---
 
@@ -272,19 +284,14 @@ POST /api/v1/checkout/{checkout_id}/place-order
 ### Payment
 
 ```http
-GET /api/v1/payment/{order_id}/status
+  POST /api/v1/order/payment/callback
 ```
 
-### Shipping
-
-```http
-GET /api/v1/shipments/cost?origin=...&destination=...
-```
 
 ### Moderation (image upload)
 
 ```http
-POST /api/v1/products/{id}/upload-image
+POST /api/v1/seller/product/image
 # otomatis dicek menggunakan Sightengine API
 ```
 
@@ -330,5 +337,5 @@ User uploads product image → Sightengine moderation → Approved / Rejected
 **Ongkir Flow:**
 
 ```
-User enters address → RajaOngkir API calculates cost → Checkout
+User selects product → Add to Cart → Checkout → RajaOngkir API calculates cost → Checkout Page
 ```
