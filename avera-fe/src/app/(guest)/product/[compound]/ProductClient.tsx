@@ -47,6 +47,8 @@ export default function ProductPage({ product }: ProductDetail) {
     categoryPath,
     handleAddToCart,
     handleBuyNow,
+    courierSla,
+    loadingCourierSla
   } = useProductDetail(product);
   const CategorProductLink = `/category/${product?.category?.slug}`;
   return (
@@ -70,6 +72,8 @@ export default function ProductPage({ product }: ProductDetail) {
             setColor={setColor}
             handleAddToCart={handleAddToCart}
             handleBuyNow={handleBuyNow}
+            courierSla={courierSla}
+            loadingCourierSla={loadingCourierSla}
           />
         </section>
 

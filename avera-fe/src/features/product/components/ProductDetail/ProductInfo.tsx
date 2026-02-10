@@ -3,7 +3,7 @@ import { ShieldCheck, ShoppingCart, Star, Timer, Truck } from "lucide-react";
 import { ProductDetail } from "../../types";
 import { CourierSla } from "@/features/shipment/type";
 import { formatCurrency } from "@/lib/utils/formatCurrency";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
@@ -11,9 +11,8 @@ export default function ProductInfo({
   product,
   qty,
   setQty,
-  color,
-  setColor,
   courierSla,
+  loadingCourierSla,
   handleAddToCart,
   handleBuyNow,
 }: {
@@ -25,11 +24,16 @@ export default function ProductInfo({
   setColor: React.Dispatch<React.SetStateAction<string>>;
   handleAddToCart: () => Promise<void>;
   handleBuyNow: () => Promise<void>;
+  loadingCourierSla: boolean;
 }) {
   const [openShipping, setOpenShipping] = useState(false);
-  const [selectedCourier, setSelectedCourier] = useState<CourierSla>(
-    courierSla[0],
+  const [selectedCourier, setSelectedCourier] = useState<CourierSla | null>(
+    courierSla ? courierSla[0] : null,
   );
+
+  useEffect(() => {
+    setSelectedCourier(courierSla ? courierSla[0] : null)
+  },[courierSla])
 
   return (
     <>
@@ -73,22 +77,26 @@ export default function ProductInfo({
             onClick={() => setOpenShipping(true)}
             className="border rounded-lg px-3 py-2 text-sm space-y-2 bg-gray-50 cursor-pointer hover:bg-gray-100 transition"
           >
-            <div className="flex gap-2">
-              <Truck className="h-5 w-5 text-gray-700" />
-              <div>
-                <p className="font-medium text-gray-800">Shipping</p>
-                <p className="text-gray-600">
-                  {selectedCourier.courier_name} ·{" "}
-                  {selectedCourier.courier_name}
-                </p>
-                <p className="text-gray-600">
-                  Est. {selectedCourier.min_days} days
-                </p>
-                {/* <p className="text-green-600 font-medium">
+            {loadingCourierSla ? (
+              "loading..."
+            ) : (
+              <div className="flex gap-2">
+                <Truck className="h-5 w-5 text-gray-700" />
+                <div>
+                  <p className="font-medium text-gray-800">Shipping</p>
+                  <p className="text-gray-600">
+                    {selectedCourier?.courier_name} ·{" "}
+                    {selectedCourier?.courier_name}
+                  </p>
+                  <p className="text-gray-600">
+                    Est. {selectedCourier?.min_days} days
+                  </p>
+                  {/* <p className="text-green-600 font-medium">
         {formatCurrency(selectedCourier.courier_name)}
       </p> */}
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="flex gap-2 items-center">
               <ShieldCheck className="h-5 w-5 text-gray-700" />
@@ -136,60 +144,64 @@ export default function ProductInfo({
           </button>
         </div>
       </div>
-      <Dialog open={openShipping} onOpenChange={setOpenShipping}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Shipping Fee Information</DialogTitle>
-          </DialogHeader>
+      {!loadingCourierSla && (
+        <Dialog open={openShipping} onOpenChange={setOpenShipping}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Shipping Fee Information</DialogTitle>
+            </DialogHeader>
 
-          {/* GUARANTEE INFO */}
-          <div className="flex items-center gap-2 text-sm text-green-700 bg-green-50 px-3 py-2 rounded-md">
-            <Timer className="h-4 w-4" />
-            <span className="font-medium">Guaranteed On-Time Delivery</span>
-          </div>
+            {/* GUARANTEE INFO */}
+            <div className="flex items-center gap-2 text-sm text-green-700 bg-green-50 px-3 py-2 rounded-md">
+              <Timer className="h-4 w-4" />
+              <span className="font-medium">Guaranteed On-Time Delivery</span>
+            </div>
 
-          {/* COURIER LIST */}
-          <div className="space-y-3 mt-3">
-            {courierSla.map((courier) => {
-              const active = courier.id === selectedCourier.id;
+            {/* COURIER LIST */}
+            <div className="space-y-3 mt-3 flex flex-col gap-2 ">
+              {courierSla
+                ? courierSla.map((courier) => {
+                    const active = courier.id === selectedCourier?.id;
 
-              return (
-                <button
-                  key={courier.id}
-                  onClick={() => {
-                    setSelectedCourier(courier);
-                    setOpenShipping(false);
-                  }}
-                  className={`w-full text-left border rounded-lg p-3 transition
+                    return (
+                      <button
+                        key={courier.id}
+                        onClick={() => {
+                          setSelectedCourier(courier);
+                          setOpenShipping(false);
+                        }}
+                        className={`w-full text-left border rounded-lg p-3 transition
               ${active ? "border-primary bg-primary/5" : "hover:bg-gray-50"}`}
-                >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="font-medium text-gray-800">
-                        {courier.courier_name} · {courier.service_name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        Est. {courier.etd} days
-                      </p>
-                    </div>
+                      >
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="font-medium text-gray-800">
+                              {courier.courier_name} · {courier.courier_name}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              Est. {courier.min_days} - {courier.max_days} days
+                            </p>
+                          </div>
 
-                    <div className="text-right">
-                      <p className="font-semibold text-gray-800">
-                        {formatCurrency(courier.price)}
-                      </p>
-                      {courier.guaranteed && (
-                        <p className="text-xs text-green-600">
-                          On-Time Guarantee
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </DialogContent>
-      </Dialog>
+                          <div className="text-right">
+                            {/* <p className="font-semibold text-gray-800">
+                        {formatCurrency(courier.max_days)}
+                      </p> */}
+                            {courier.is_active && (
+                              <p className="text-xs text-green-600">
+                                On-Time Guarantee
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })
+                : ""}
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   );
 }

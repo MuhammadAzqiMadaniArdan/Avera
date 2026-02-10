@@ -15,11 +15,12 @@ class ShipmentService
 
     public function __construct(
         private ShipmentRepository $shipmentRepository,
-    ) {
+        // ?string $apiKey = null,
+        // ?string $baseUrl = null
+        ) {
 
-        $this->apiKey  = config('rajaongkir.api_key');
+        $this->apiKey = config('rajaongkir.api_key');
         $this->baseUrl = config('rajaongkir.base_url');
-
     }
 
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { setAccessToken } from "@/lib/auth/token";
+import { getAccessToken, setAccessToken } from "@/lib/auth/token";
 import { getUserProfile } from "@/features/profile/services";
 import { UserProfile } from "@/features/profile/types";
 
@@ -60,8 +60,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const initAuth = async () => {
       try {
-        // trigger refresh token silently
-        await fetchProfile();
+        await fetchProfile(); // wajib dipanggil
+      } catch {
+        setUser(null);
+        setIsAuth(false);
       } finally {
         setLoading(false);
       }
@@ -78,7 +80,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         loading,
         login,
         logout,
-        updateUser, 
+        updateUser,
         refreshProfile: fetchProfile,
       }}
     >

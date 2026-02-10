@@ -1,4 +1,5 @@
 export interface CourierSla {
+  id: number;
   courier_code: string;
   courier_name: string;
   min_days: number;

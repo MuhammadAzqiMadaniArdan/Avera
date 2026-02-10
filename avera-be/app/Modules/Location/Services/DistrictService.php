@@ -38,7 +38,6 @@ class DistrictService implements DistrictServiceInterface
 
         $data = data_get($response->json(), 'data', []);
 
-        Log::info("data anda",[$data]);
         return collect($data)->map(function ($item) use ($cityId) {
             return $this->districtRepository->store([
                 'city_id' => $cityId,

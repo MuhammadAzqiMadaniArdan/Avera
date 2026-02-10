@@ -101,7 +101,7 @@ class CheckoutService implements CheckoutServiceInterface
             // 1️⃣ alamat berubah → recalculate shipment (ONLY CASE)
             if (!empty($data['user_address_id'])) {
 
-                if ($data['user_address_id'] === $checkout->user_address_id || $data['user_address_id'] === $checkout->shipments?->user_address_id) {
+                if ($data['user_address_id'] === $checkout->user_address_id) {
                     return;
                 }
 

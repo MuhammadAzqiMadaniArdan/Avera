@@ -1,12 +1,12 @@
-import { Store } from "@/features/cart/types";
+import { StoreDetail } from "@/features/cart/types";
 import { formatCount } from "@/lib/utils/formatCount";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function StoreInfo({ store }: Store) {
+export default function StoreInfo({ store }: StoreDetail) {
   return (
     <section className="max-w-7xl mx-auto px-4 py-6">
-      <div className="bg-white border rounded-xl p-6 grid grid-cols-2 md:grid-cols-6 gap-4 text-sm">
+      <div className="bg-white border rounded-xl p-6 grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
         <div className="col-span-2 flex gap-4">
           {store.logo ? (
             <Link

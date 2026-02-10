@@ -39,6 +39,7 @@ export function useProductDetail(product: ProductDetail) {
   const [loadingReviews, setLoadingReviews] = useState(true);
   const [loadingProductStore, setLoadingProductStore] = useState(true);
   const [loadingProductCategory, setLoadingProductCategory] = useState(true);
+  const [loadingCourierSla, setLoadingCourierSla] = useState(true);
   const [productStore, setProductStore] = useState<ProductHomepage[]>([]);
   const [productCategory, setProductCategory] = useState<ProductHomepage[]>([]);
   const [courierSla, setCourierSla] = useState<CourierSla[]>([]);
@@ -131,6 +132,7 @@ export function useProductDetail(product: ProductDetail) {
     } catch(error) {
       notify.error(error?.response?.data?.message ?? "gagal mengambil data courier sla")
     }finally {
+      setLoadingCourierSla(false)
     }
   };
 
@@ -154,6 +156,7 @@ export function useProductDetail(product: ProductDetail) {
     loadingReviews,
     loadingProductStore,
     loadingProductCategory,
+    loadingCourierSla,
     categoryPath,
     courierSla,
 
