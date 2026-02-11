@@ -28,15 +28,6 @@ export interface StoreCreatePayload {
   description?: string;
 }
 
-export interface StoreResponse {
-  user_id: string;
-  name: string;
-  slug: string;
-  description: string;
-  banner_url?: string;
-  rating: number;
-  verified: boolean;
-}
 
 // Buat product baru
 export async function createStore(

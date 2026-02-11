@@ -3,17 +3,14 @@ export type CategoryStatus = "active" | "inactive";
 export interface CategoryBase {
   name: string;
   slug: string;
-  image: string | null; // URL saja
+  image: string | null; 
 }
 
-/**
- * Untuk homepage / listing
- */
-export interface CategoryHomepage extends CategoryBase {}
+export interface CategoryTree extends CategoryBase {
+  parent?: CategoryBase;
+  children?: CategoryBase;
+}
 
-/**
- * Untuk detail product
- */
 export interface Category extends CategoryBase {
   id: string;
   description: string;
@@ -24,7 +21,7 @@ export interface Category extends CategoryBase {
 }
 
 export interface FlatCategory {
-  value: Category["id"]; // 🔒 biar TS nangkap kalau salah
+  value: Category["id"]; 
   label: string;
 }
 
@@ -36,7 +33,7 @@ export function flattenCategories(
     const currentPath = [...parentPath, cat.name];
 
     const currentItem = {
-      value: cat.id, // ✅ PAKAI ID
+      value: cat.id, 
       label: currentPath.join(" > "),
     };
 

@@ -7,7 +7,10 @@
 /storage/app/google/*.json
 /vendor
 .env
+.env
 .env.backup
+.env.development
+.env.staging
 .env.production
 .phpunit.result.cache
 Homestead.json

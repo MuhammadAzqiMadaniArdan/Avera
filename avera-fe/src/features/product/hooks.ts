@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import { ProductDetail, ProductHomepage } from "./types";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { ProductDetail, ProductBase } from "./types";
 import { PaginatedReviews } from "../reviews/types";
 import { storeProductCart } from "../cart/services";
 import { notify } from "@/lib/toast/notify";
@@ -40,8 +40,8 @@ export function useProductDetail(product: ProductDetail) {
   const [loadingProductStore, setLoadingProductStore] = useState(true);
   const [loadingProductCategory, setLoadingProductCategory] = useState(true);
   const [loadingCourierSla, setLoadingCourierSla] = useState(true);
-  const [productStore, setProductStore] = useState<ProductHomepage[]>([]);
-  const [productCategory, setProductCategory] = useState<ProductHomepage[]>([]);
+  const [productStore, setProductStore] = useState<ProductBase[]>([]);
+  const [productCategory, setProductCategory] = useState<ProductBase[]>([]);
   const [courierSla, setCourierSla] = useState<CourierSla[]>([]);
   const [reviews, setReviews] = useState<PaginatedReviews>({
     data: [],
@@ -78,7 +78,7 @@ export function useProductDetail(product: ProductDetail) {
       router.push(
         `/cart?itemsKey=${res.data.id}&storeId=${product.store.id}`,
       );
-    } catch (error: any) {
+    } catch (error) {
       notify.error(
         error?.response?.data?.message ??
           "Gagal Memasukkan data ke keranjang",
@@ -86,27 +86,28 @@ export function useProductDetail(product: ProductDetail) {
     }
   };
 
-  const getReviewData = async (page = 1, rating = 0) => {
-    try {
-      const res = await getProductReviews(productId, {
-        page,
-        rating,
-      });
 
-      setReviews({
-        data: res.data ?? [],
-        meta: {
-          current_page: res.meta?.current_page ?? 1,
-          per_page: res.meta?.per_page ?? 6,
-          total: res.meta?.total ?? 0,
-          last_page: res.meta?.last_page ?? 1,
-        },
-      });
-    } finally {
-      setLoadingReviews(false);
-    }
-  };
+  const getReviewData = useCallback(async (page = 1, rating = 0) => {
+  setLoadingReviews(true); // optional: reset loading setiap panggil
+  try {
+    const res = await getProductReviews(productId, { page, rating });
 
+    setReviews({
+      data: res.data ?? [],
+      meta: {
+        current_page: res.meta?.current_page ?? 1,
+        per_page: res.meta?.per_page ?? 6,
+        total: res.meta?.total ?? 0,
+        last_page: res.meta?.last_page ?? 1,
+      },
+    });
+  } finally {
+    setLoadingReviews(false);
+  }
+}, [productId]);
+
+  useEffect(() => {
+    
   const getProductStoreData = async () => {
     try {
       const res = await getProductStore(product?.store?.slug);
@@ -135,13 +136,11 @@ export function useProductDetail(product: ProductDetail) {
       setLoadingCourierSla(false)
     }
   };
-
-  useEffect(() => {
     getReviewData();
     getCourierSlaData();
     getProductStoreData();
     getProductCategoryData();
-  }, []);
+  }, [getReviewData,product?.category?.slug,product?.store?.slug,productId]);
 
   return {
     // state

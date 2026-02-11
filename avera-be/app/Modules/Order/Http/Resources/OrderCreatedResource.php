@@ -15,9 +15,8 @@ class OrderCreatedResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'order' => new OrderResource($this['order']),
+            'order_id' => $this['order_id'],
             'snap_token' => $this['snap_token'],
-            'client_key' => $this['client_key'],
         ];
     }
 }

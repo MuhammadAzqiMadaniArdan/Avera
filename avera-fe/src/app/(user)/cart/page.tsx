@@ -50,7 +50,7 @@ export default function CartPage() {
   } = useCart();
 
   const [selectedVouchers, setSelectedVouchers] = useState<
-    Record<string, number>
+    Record<string, number | null>
   >({});
 
   // State untuk voucher modal
@@ -176,8 +176,8 @@ export default function CartPage() {
           selectedVoucherId={selectedVouchers[voucherModalStore]}
           onSelect={(voucherId) => {
             setSelectedVouchers((prev) => ({
-              // ...prev,
-              // [voucherModalStore]: voucherId,
+              ...prev,
+              [voucherModalStore]: voucherId,
             }));
             setVoucherModalStore(null);
           }}

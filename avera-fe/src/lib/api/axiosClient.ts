@@ -1,16 +1,15 @@
 import axios, { AxiosInstance } from "axios";
 import { getAccessToken, setAccessToken } from "../auth/token";
 
-
 // Axios instance untuk Identity Core (auth service)
 export const authApi: AxiosInstance = axios.create({
-  baseURL: "http://localhost:8000",
-  withCredentials: true,
+  baseURL: process.env.NEXT_PUBLIC_AUTH_API_BASE_URL,
+  withCredentials: true
 });
 
 // Axios instance untuk Avera BE (produk, order, dll)
 export const averaApi: AxiosInstance = axios.create({
-  baseURL: "http://localhost:8001",
+  baseURL: process.env.NEXT_PUBLIC_AVERA_API_BASE_URL,
   withCredentials: true,
 });
 
@@ -45,7 +44,6 @@ const processQueue = (error: unknown, token: string | null = null) => {
 
 // Interceptor untuk refresh token
 averaApi.interceptors.response.use(
-  
   (response) => response,
   async (error) => {
     const originalRequest = error.config;

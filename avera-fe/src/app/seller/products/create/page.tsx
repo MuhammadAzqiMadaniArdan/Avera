@@ -69,16 +69,13 @@ export default function CreateProductPage() {
       const productSlug = res.data?.slug;
 
       router.push(`/seller/products/draft/${productSlug}`);
-    } catch (error: any) {
+    } catch (error) {
       notify.error(
         error?.response?.data?.message ?? "Gagal menambahkan produk",
       );
     }
   };
 
-  const handleArchive = () => {
-    alert("Produk diarsipkan (dummy)");
-  };
 
   useEffect(() => {
     getCategoryData();

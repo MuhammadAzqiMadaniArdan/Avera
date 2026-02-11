@@ -56,11 +56,11 @@ class AppServiceProvider extends ServiceProvider
                 );
         });
 
-        RateLimiter::for('report',function (Request $request) {
+        RateLimiter::for('report', function (Request $request) {
             return Limit::perMinute(5)
-            ->by(AuthHelper::uuid($request));
+                ->by(AuthHelper::uuid($request));
         });
-        
+
         Gate::policy(CartItem::class, CartPolicy::class);
         Gate::policy(Store::class, StorePolicy::class);
         Gate::policy(Product::class, ProductPolicy::class);
@@ -72,10 +72,9 @@ class AppServiceProvider extends ServiceProvider
             $request = $app->make(Request::class);
             $uuid = AuthHelper::uuid($request);
             $user = User::where('identity_core_id', $uuid)->first();
-            if(!$user) return null;
+            if (!$user) return null;
             return $user;
         });
-
         Config::$serverKey = config('midtrans.server_key');
         Config::$isProduction = config('midtrans.is_production');
         Config::$isSanitized = config('midtrans.is_sanitized');

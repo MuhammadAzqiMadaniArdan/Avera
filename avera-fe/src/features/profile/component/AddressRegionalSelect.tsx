@@ -76,7 +76,7 @@ export default function AddressRegionSelect({
       try {
         const res = await getProvinces();
         setProvinces(res.data);
-      } catch (err) {
+      } catch {
         notify.error("Gagal mengambil provinces");
       } finally {
         setLoadingProv(false);
@@ -103,14 +103,14 @@ export default function AddressRegionSelect({
           const selectedCity = res.data.find((c) => c.id === city);
           if (selectedCity) setCityName(selectedCity.name);
         }
-      } catch (err) {
+      } catch {
         notify.error("Gagal mengambil city");
       } finally {
         setLoadingCity(false);
       }
     };
     fetchCities();
-  }, [province]);
+  }, [province,city,setCityId,setCityName]);
 
   // Districts dummy
   useEffect(() => {
@@ -124,14 +124,14 @@ export default function AddressRegionSelect({
           const selectedDistrict = res.data.find((d) => d.id === district);
           if (selectedDistrict) setDistrictName(selectedDistrict.name);
         }
-      } catch (err) {
+      } catch {
         notify.error("Gagal mengambil District");
       } finally {
         setLoadingDistrict(false);
       }
     };
     fetchDistricts()
-  }, [city]);
+  }, [city,district,setDistrictName]);
 
   // Villages dummy
   useEffect(() => {
@@ -148,7 +148,7 @@ export default function AddressRegionSelect({
         setPostalCode(selected.postal_code);
       }
     }
-  }, [district]);
+  }, [district,setPostalCode,setVillageName,village]);
 
   const disabledClass = "cursor-not-allowed opacity-50";
 

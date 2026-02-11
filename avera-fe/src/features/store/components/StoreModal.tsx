@@ -11,13 +11,13 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { createStore, getStoreBySeller } from "@/features/store/services";
+import { createStore, getStoreBySeller, StoreResponse } from "@/features/store/services";
 import { StoreCreatedForm } from "@/features/store/components/StoreCreatedForm";
 import { useRouter } from "next/navigation";
 import { notify } from "@/lib/toast/notify";
 
 export default function StoreModal() {
-  const [store, setStore] = useState<any>(null);
+  const [store, setStore] = useState<StoreResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -26,7 +26,7 @@ export default function StoreModal() {
       try {
         const res = await getStoreBySeller();
         setStore(res.data);
-      } catch (err: any) {
+      } catch (err) {
         if (err.response?.status === 404 || err.response?.status === 401)
           setStore(null);
       } finally {
@@ -48,7 +48,7 @@ export default function StoreModal() {
       } else {
         notify.error(res.message ?? "Failed to make store");
       }
-    } catch (err: any) {
+    } catch (err) {
       notify.error(err.response?.data?.message ?? "Failed to make store");
       alert(err.response?.data?.message ?? "Gagal membuat store");
     }

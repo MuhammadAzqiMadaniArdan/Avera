@@ -1,6 +1,6 @@
 import { averaApi } from "@/lib/api/axiosClient";
 import { ApiResponse } from "@/lib/api/response";
-import { ProductBase, ProductCreatePayload, ProductDetail, ProductHomepage, ProductSellerIndex } from "./types";
+import { ProductBase, ProductCreatePayload, ProductDetail, ProductSellerIndex } from "./types";
 
 interface SearchParams {
   keyword?: string,
@@ -9,10 +9,10 @@ interface SearchParams {
   order?: string,
 }
 
-export async function getProductSearch(filter: SearchParams = {}): Promise<ApiResponse<ProductHomepage[]>> {
+export async function getProductSearch(filter: SearchParams = {}): Promise<ApiResponse<ProductBase[]>> {
   const { keyword, page = 1, sort, order } = filter;
 
-  const response = await averaApi.get("/api/v1/product", {
+  const response = await averaApi.get("/api/v1/products", {
     params: {
       keyword,
       page,
@@ -25,37 +25,37 @@ export async function getProductSearch(filter: SearchParams = {}): Promise<ApiRe
 }
 
 export async function getRandomProduct(): Promise<
-  ApiResponse<ProductHomepage[]>
+  ApiResponse<ProductBase[]>
 > {
-  const response = await averaApi.get("/api/v1/product/random");
+  const response = await averaApi.get("/api/v1/products/random");
   return response.data;
 }
 
 export async function getProductTop(): Promise<
-  ApiResponse<ProductHomepage[]>
+  ApiResponse<ProductBase[]>
 > {
-  const response = await averaApi.get("/api/v1/product/top");
+  const response = await averaApi.get("/api/v1/products/top");
   return response.data;
 }
 
 export async function getProductStore(storeSlug : string): Promise<
-  ApiResponse<ProductHomepage[]>
+  ApiResponse<ProductBase[]>
 > {
-  const response = await averaApi.get(`/api/v1/product/${storeSlug}/store`);
+  const response = await averaApi.get(`/api/v1/products/${storeSlug}/store`);
   return response.data;
 }
 
 export async function getProductCategory(categorySlug : string): Promise<
-  ApiResponse<ProductHomepage[]>
+  ApiResponse<ProductBase[]>
 > {
-  const response = await averaApi.get(`/api/v1/product/${categorySlug}/category`);
+  const response = await averaApi.get(`/api/v1/products/${categorySlug}/category`);
   return response.data;
 }
 
 // // Ambil detail product
 export async function getProductSeller(): Promise<ApiResponse<ProductSellerIndex[]>
 > {
-  const response = await averaApi.get(`/api/v1/seller/product`);
+  const response = await averaApi.get(`/api/v1/seller/products`);
   return response.data;
 }
 
@@ -66,20 +66,14 @@ interface CreateProductForm {
   categoryId: string;
 }
 
-interface CreateProductImageForm {
-  name: string;
-  description: string;
-  categoryId: string;
-}
-// // Buat product baru
 export async function createProduct(data: CreateProductForm): Promise<ApiResponse<ProductBase>
 > {
   const payload: ProductCreatePayload = {
     name: data.name,
     description: data.description,
-    category_id: data.categoryId, // 🔥 mapping DI SINI
+    category_id: data.categoryId, 
   };
-  const response = await averaApi.post("/api/v1/seller/product", payload);
+  const response = await averaApi.post("/api/v1/seller/products", payload);
   return response.data;
 }
 
@@ -88,33 +82,14 @@ export async function createProductImage(data: CreateProductForm): Promise<ApiRe
   const payload: ProductCreatePayload = {
     name: data.name,
     description: data.description,
-    category_id: data.categoryId, // 🔥 mapping DI SINI
+    category_id: data.categoryId, 
   };
-  const response = await averaApi.post("/api/v1/seller/product", payload);
+  const response = await averaApi.post("/api/v1/seller/products", payload);
   return response.data;
 }
-
-// export async function getProductByCompound(compound: string): Promise<ApiResponse<Product>> {
-//   const response = await averaApi.get(`/api/v1/product/${compound}`);
-//   return response.data;
-// }
 
 export async function getProductByCompound(compound: string): Promise<ApiResponse<ProductDetail>> {
-  const response = await averaApi.get(`/api/v1/product/${compound}`);
+  const response = await averaApi.get(`/api/v1/products/${compound}`);
   return response.data;
 }
 
-// // Ambil detail product
-// export async function getProductById(productId: string): Promise<ProductResponse> {
-//   const response = await averaApi.get(`/api/v1/products/${productId}`);
-//   return response.data;
-// }
-// // Ambil detail product
-
-
-
-// // Update product
-// export async function updateProduct(productId: string, payload: Partial<ProductCreatePayload>): Promise<ProductResponse> {
-//   const response = await averaApi.put(`/api/v1/products/${productId}`, payload);
-//   return response.data;
-// }

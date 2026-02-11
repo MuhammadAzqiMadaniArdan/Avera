@@ -10,8 +10,6 @@ export function useCheckout() {
   const router = useRouter();
   const [checkout, setCheckout] = useState<Checkout | null>(null);
   const [loading, setLoading] = useState(true);
-  const [formOpen, setFormOpen] = useState(false);
-  const [editing, setEditing] = useState<UserAddress | null>(null);
   // Load cart items on mount
   useEffect(() => {
     const loadCheckout = async () => {
@@ -53,32 +51,15 @@ export function useCheckout() {
     try {
       const response = await orderCheckout(checkout?.id); // panggil API store di backend
 
-      const { order, snap_token } = response.data;
+      const { order_id, snap_token } = response.data;
 
       if (!snap_token) {
         alert("Order berhasil dibuat! Silakan tunggu pengiriman COD");
         router.push(`/user/purchase`); // redirect ke halaman order list
       }
 
-      // case midtrans
       if (snap_token) {
-        window.snap.pay(snap_token, {
-          onSuccess: (result) => {
-            notify.success(`Payment success: ${result}`);
-            router.push(`/user/purchase`); // redirect ke halaman success
-          },
-          onPending: (result) => {
-            notify.success(`Payment pending: ${result}`);
-            router.push(`/user/purchase`);
-          },
-          onError: (result) => {
-            console.log("Payment failed:", result);
-            alert("Payment gagal, coba lagi");
-          },
-          onClose: () => {
-            alert("Payment popup ditutup tanpa membayar");
-          },
-        });
+        router.push(`/payment/${order_id}`);
       }
     } catch (error) {
       notify.error(error?.response?.data?.message ?? "Gagal Membuat order");

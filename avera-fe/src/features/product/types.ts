@@ -1,4 +1,4 @@
-import { Store, StoreDetail } from "../cart/types";
+import { StoreDetail } from "../cart/types";
 import { BreadcrumbProps, Category } from "../category/types";
 
 export type ProductStatus = "draft" | "active" | "inactive" | "archived";
@@ -11,7 +11,13 @@ export interface ProductBase {
   slug: string;
   price: number;
   sold: number;
-  primaryImage: string | null; // URL saja
+  stock: number;
+  primaryImage: string | null;
+}
+
+export interface ProductSeller extends ProductBase{
+  views: number;
+  status: number;
 }
 
 export interface ImageBase {
@@ -21,12 +27,6 @@ export interface ImageBase {
   is_primary: boolean;
   position: number;
 }
-
-
-/**
- * Untuk homepage / listing
- */
-export interface ProductHomepage extends ProductBase {}
 
 /**
  * Untuk detail product
@@ -75,7 +75,7 @@ export interface ProductDraft {
   categoryId: string;
   name: string;
   description: string;
-  status: "draft";
+  status: ProductStatus;
 }
 
 export interface ProductFull extends ProductDraft {
@@ -84,6 +84,5 @@ export interface ProductFull extends ProductDraft {
   images: string[];
   weight: number;
   sku?: string;
-  status: "active" | "inactive";
 }
 

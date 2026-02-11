@@ -12,7 +12,7 @@ interface Props {
   items: CartItemData[];
   selectedIds: string[];
   vouchers?: Voucher[];
-  selectedVoucherId?: number;
+  selectedVoucherId: number | null;
   onToggleStore: () => void;
   onToggleItem: (id: string) => void;
   onQtyChange: (id: string, qty: number) => void;

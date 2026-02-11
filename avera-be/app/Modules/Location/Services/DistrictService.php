@@ -34,7 +34,8 @@ class DistrictService implements DistrictServiceInterface
         }
         $response = Http::withHeaders([
             'key' => config('rajaongkir.api_key'),
-        ])->get($this->baseUrl . "/destination/district/{$city->rajaongkir_id}");
+        ])
+        ->get($this->baseUrl . "/destination/district/{$city->rajaongkir_id}");
 
         $data = data_get($response->json(), 'data', []);
 

@@ -24,7 +24,12 @@ export default function StoreInfo({ store }: StoreDetail) {
             <div className="w-14 h-14 bg-gray-200 rounded-full" />
           )}
           <div>
-            <p className="font-semibold">{store.name}</p>
+            <Link
+              href={`/store/${store.slug}`}
+              className="relative w-14 h-14 rounded-full overflow-hidden"
+            >
+              <p className="font-semibold">{store.name}</p>
+            </Link>
             <p className="text-gray-500 text-xs">Active 1 hour ago</p>
           </div>
         </div>

@@ -16,14 +16,16 @@ export default function ProductTabs({
   reviews: PaginatedReviews;
   getReviewData: (page: number, filterRating: number) => void;
 }) {
+  const tabs = ["spec", "description", "reviews"] as const; 
+
   return (
     <section className="max-w-7xl mx-auto px-4 py-8">
       <div className="bg-white border rounded-xl">
         <div className="flex border-b">
-          {["spec", "description", "reviews"].map((t) => (
+          {tabs.map((t) => (
             <button
               key={t}
-              onClick={() => setActiveTab(t as any)}
+              onClick={() => setActiveTab(t)}
               className={`px-6 py-4 text-sm ${
                 activeTab === t ? "border-b-2 border-black" : "text-gray-500"
               }`}

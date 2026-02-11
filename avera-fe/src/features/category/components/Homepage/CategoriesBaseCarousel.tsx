@@ -1,10 +1,10 @@
 "use client";
 
-import { CategoryHomepage } from "../../types";
+import { CategoryBase } from "../../types";
 import CategorySkeleton from "@/components/Skeleton/CategoryCardSkeleton";
 import { CategoriesCarousel } from "./CategoriesCarousel";
 interface Props {
-  categories : CategoryHomepage[],
+  categories : CategoryBase[],
   loading : boolean
 }
 const CategoriesBaseCarousel = ({categories,loading} : Props) => {

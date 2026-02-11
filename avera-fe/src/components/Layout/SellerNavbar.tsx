@@ -18,8 +18,8 @@ export function SellerNavbar() {
       } else {
         notify.error(res?.message ?? "Failed to load store");
       }
-    } catch (err: any) {
-      notify.error(err.response?.data?.message ?? "Failed to load store");
+    } catch (error) {
+      notify.error(error.response?.data?.message ?? "Failed to load store");
     } finally {
       setLoading(false);
     }

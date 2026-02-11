@@ -3,7 +3,6 @@ import { AddressFormDialog } from "./AddressFormDialog";
 import { AddressDeleteDialog } from "./AddressDeleteDialog";
 import { Button } from "@/components/ui/button";
 import { useAddress } from "../hooks";
-import { useState } from "react";
 
 export default function AddressManager() {
   const {

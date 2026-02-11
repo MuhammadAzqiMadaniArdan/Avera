@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
 import { useEffect, useState } from "react";
-import { ProductHomepage } from "@/features/product/types";
+import { ProductBase } from "@/features/product/types";
 import ProductCard from "@/features/product/components/Homepage/ProductCard";
 import { getProductSearch } from "@/features/product/services";
 
@@ -11,7 +11,7 @@ export default function Search() {
   const searchParams = useSearchParams();
   const q = searchParams.get("q") ?? "";
 
-  const [products, setProducts] = useState<ProductHomepage[]>([]);
+  const [products, setProducts] = useState<ProductBase[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Search() {
       try {
         const res = await getProductSearch({ keyword:q });
         if (!cancelled) setProducts(res.data);
-      } catch (err) {
+      } catch {
         if (!cancelled) setProducts([]);
       } finally {
         if (!cancelled) setLoading(false);

@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 
-import { useRouter } from "next/navigation";
 import CheckoutHeader from "@/features/checkout/components/CheckoutHeader";
 import DeliveryAddress from "@/features/checkout/components/DeliveryAddress";
 import ProductCardByStore from "@/features/checkout/components/ProductCardByStore";
@@ -13,7 +12,7 @@ import { useCheckout } from "@/features/checkout/hooks";
 export default function CheckoutPage() {
   const { checkout,setCheckout, loading, handlePlaceOrder, selectAddress, handleUpdatePaymentMethod,selectShipment } = useCheckout();
 
-  const [paymentMethod, setPaymentMethod] = useState<"cod" | "midtrans">("cod");
+  const paymentMethod = useState<"cod" | "midtrans">("cod");
   const [openPayment, setOpenPayment] = useState(false);
  
   return (

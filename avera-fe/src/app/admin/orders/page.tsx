@@ -26,7 +26,7 @@ export default function OrdersPage() {
   });
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
-  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  // const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const [sort, setSort] = useState<"asc" | "desc">("asc");
 
   const sortedOrders = [...orders].sort((a, b) =>

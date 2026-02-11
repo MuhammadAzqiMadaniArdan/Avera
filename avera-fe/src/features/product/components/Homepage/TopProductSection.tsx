@@ -2,10 +2,10 @@ import TopProductsCarouselSkeleton from "@/components/Skeleton/TopProductCarouse
 import TopProductCard from "./TopProductCard";
 import { SectionWrapper } from "@/components/common/section/SectionWrapper";
 import { BaseCarousel } from "@/components/common/carousel/BaseCarousel";
-import { ProductHomepage } from "../../types";
+import { ProductBase } from "../../types";
 
 interface Props {
-  products: ProductHomepage[];
+  products: ProductBase[];
   loading: boolean;
 }
 

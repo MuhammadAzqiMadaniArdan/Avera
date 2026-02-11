@@ -1,5 +1,6 @@
 import { Store } from "../cart/types";
-import { ProductHomepage } from "../product/types";
+import { Order } from "../order/types";
+import { ProductBase } from "../product/types";
 import { UserAddress } from "../profile/types";
 
 export interface Checkout {
@@ -31,7 +32,7 @@ export interface CheckoutItem {
   subtotal: number;
   weight: number;
   discount: number;
-  product: ProductHomepage;
+  product: ProductBase;
 }
 export interface CheckoutShipment {
   id: string;
@@ -65,8 +66,8 @@ export interface CheckoutItemPayload {
   user_address_id?: string;
 }
 
+
 export interface OrderCreated {
-  order : string;
+  order_id : string;
   snap_token: string | null;
-  client_key: string | null;
 }

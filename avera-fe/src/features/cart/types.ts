@@ -1,4 +1,4 @@
-import { ProductHomepage } from "../product/types";
+import { ProductBase } from "../product/types";
 
 export interface Store {
   id: string;
@@ -17,18 +17,11 @@ export interface StoreDetail extends Store {
   logo: string;
 }
 
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  primaryImage: string | null;
-  stock: number;
-}
 
 export interface CartItem {
   id: number;
   quantity: number;
-  product: Product;
+  product: ProductBase;
 }
 
 export interface StoreCartItemForm {
@@ -56,7 +49,7 @@ export interface Voucher {
 export interface CartItemData {
   cart_item_id: string;
   quantity: number;
-  product: ProductHomepage;
+  product: ProductBase;
 }
 
 export interface CartStoreGroup
@@ -65,13 +58,3 @@ export interface CartStoreGroup
   items: CartItemData[];
   subtotal: number;
 }
-// export interface CartItem {
-//   id: number;
-//   shop: string;
-//   name: string;
-//   variations: string;
-//   price: number;
-//   quantity: number;
-//   image: string;
-//   saved?: number;
-// }

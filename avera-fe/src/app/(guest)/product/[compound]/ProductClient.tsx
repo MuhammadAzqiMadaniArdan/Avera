@@ -2,9 +2,6 @@
 
 import React from "react";
 import { Navbar } from "@/components/Navbar";
-import { products } from "@/lib/dummyData";
-import ProductCard from "@/features/product/components/ProductCard";
-import Link from "next/link";
 import { ProductDetail } from "@/features/product/types";
 
 import StoreInfo from "@/features/product/components/ProductDetail/StoreInfo";
@@ -14,18 +11,9 @@ import Breadcrumb from "@/features/product/components/ProductDetail/BreadCrumb";
 import ProductTabs from "@/features/product/components/ProductDetail/ProductTabs";
 import { useProductDetail } from "@/features/product/hooks";
 import { StoreProductSection } from "@/features/product/components/ProductDetail/StoreProductSection";
-import { CategoryProductSection } from "@/features/product/components/ProductDetail/CategoryProductSection";
 import ProductGrid from "@/features/product/components/Homepage/ProductGrid";
 
 /* -------------------------- MAIN PAGE -------------------------- */
-
-type ProductGridProps = {
-  title: string;
-  seeMoreUrl?: string; // URL untuk tombol See More
-  storeSlug?: string; // optional untuk filter From This Store
-  categorySlug?: string; // optional untuk filter You May Also Like
-  perPage?: number;
-};
 
 export default function ProductPage({ product }: ProductDetail) {
   const {

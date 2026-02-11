@@ -1,4 +1,4 @@
-import { ProductHomepage } from "../product/types";
+import { ProductBase } from "../product/types";
 import { ReviewBase } from "../reviews/types";
 
 export interface User {
@@ -22,7 +22,7 @@ export interface OrderItem {
   weight: number;
   user_voucher?: UserVoucher;
   review?: ReviewBase;
-  product?: ProductHomepage;
+  product?: ProductBase;
 }
 
 export interface Shipment {

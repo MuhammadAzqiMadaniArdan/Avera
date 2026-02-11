@@ -18,7 +18,7 @@ export default function ShippingModal({
   onConfirm,
 }: {
   open: boolean;
-  shipments: CheckoutShipment[];
+  shipments: CheckoutShipment[] | null;
   onClose: () => void;
   onConfirm: (shipmentId: string,activeShipmentId : string) => void;
 }) {
@@ -26,7 +26,7 @@ export default function ShippingModal({
 const [initialSelected, setInitialSelected] = useState<string | null>(null);
 
   useEffect(() => {
-    const active = shipments.find((s) => s.is_selected);
+    const active = shipments?.find((s) => s.is_selected);
     const activeId = active?.id ?? null;
     setSelected(activeId);
     setInitialSelected(activeId);
@@ -43,7 +43,7 @@ const [initialSelected, setInitialSelected] = useState<string | null>(null);
         </DialogHeader>
 
         <div className="flex-1 space-y-2 overflow-y-auto no-scrollbar">
-          {shipments.map((shipment) => (
+          {shipments?.map((shipment) => (
            <label
               key={shipment.id}
               className={`flex items-start gap-3 border p-3 rounded cursor-pointer mb-2
@@ -93,7 +93,7 @@ const [initialSelected, setInitialSelected] = useState<string | null>(null);
                 return;
               }
 
-              onConfirm(selected,initialSelected);
+              onConfirm(selected,initialSelected!);
               onClose();
             }}
           >

@@ -31,7 +31,7 @@ export function useProfile() {
         const res = await getUserProfile();
         setProfile(res.data);
         setOriginalProfile(res.data);
-      } catch (error: any) {
+      } catch (error) {
         notify.error(error?.response?.data?.message ?? "Gagal ambil profile");
       } finally {
         setLoading(false);
@@ -68,7 +68,7 @@ export function useProfile() {
       updateUser(res.data);
 
       notify.success("Profile berhasil diperbarui");
-    } catch (error: any) {
+    } catch (error) {
       notify.error(error?.response?.data?.message ?? "Update profile gagal");
     } finally {
       setLoading(false);
@@ -90,10 +90,9 @@ export function useProfile() {
       setAvatarFile(null);
       setPreviewAvatar(null);
 
-      const profileRes = await getUserProfile();
-      setProfile(profileRes.data);
+      setProfile(res.data);
       notify.success("Avatar berhasil diperbarui");
-    } catch (error: any) {
+    } catch (error) {
       notify.error(error?.response?.data?.message ?? "Upload avatar gagal");
     } finally {
       setLoadingAvatar(false);
@@ -175,7 +174,7 @@ export function useAddress() {
       }
 
       return updatedAddress; // ✅ INI KUNCINYA
-    } catch (error: any) {
+    } catch (error) {
       notify.error(
         error?.response?.data?.message ?? "Gagal mengubah / membuat data",
       );

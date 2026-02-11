@@ -6,7 +6,7 @@ export const API_ENDPOINT = {
 
   PRODUCT: {
     SELLER_LIST: "/api/v1/seller/product",
-    DETAIL: (id: string) => `/api/v1/products/${id}`,
+    DETAIL: (id: string) => `/api/v1/productss/${id}`,
   },
 
   ORDER: {

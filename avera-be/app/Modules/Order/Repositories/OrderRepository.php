@@ -108,7 +108,7 @@ class OrderRepository implements OrderRepositoryInterface
                 fn($q) => $q->orderByDesc('created_at')
             )->paginate($perPage);
     }
-
+    
     public function find(int $id): ?Order
     {
         return $this->model->find($id);

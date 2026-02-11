@@ -10,8 +10,13 @@ import { estimateDelivery } from "@/lib/utils/estimateDelivery";
 
 interface Props {
   stores: CheckoutStore[];
-  selectShipment: (storeId : string,shipmentId : string) => void;
+  selectShipment: (
+    storeId: string,
+    shipmentId: string,
+    activeShipmentId: string
+  ) => Promise<void>;
 }
+
 
 export default function ProductCardByStore({ stores,selectShipment }: Props) {
   const [openShipping, setOpenShipping] = useState<string | null>(null);
@@ -23,7 +28,6 @@ export default function ProductCardByStore({ stores,selectShipment }: Props) {
           key={store.store.slug}
           className="bg-white rounded-md p-4 space-y-3 overflow-x-auto"
         >
-          {/* Header Grid */}
           <div className="flex justify-between items-center mb-2 w-full text-sm font-semibold text-gray-500 min-w-[600px]">
             <div className="min-w-0">Products Ordered</div>
             <div>Unit Price</div>
@@ -31,10 +35,7 @@ export default function ProductCardByStore({ stores,selectShipment }: Props) {
             <div>Item Subtotal</div>
           </div>
           <div className="border-t  space-y-4 min-w-[600px]">
-            {/* Store Name */}
             <p className="font-medium py-3">{store.store.name}</p>
-
-            {/* Items */}
             {store.items.map((item) => (
               <div
                 key={item.id}
@@ -59,19 +60,13 @@ export default function ProductCardByStore({ stores,selectShipment }: Props) {
                   </p>
                 </div>
 
-                {/* Price */}
                 <p>{formatCurrency(item.price)}</p>
 
-                {/* Quantity */}
                 <p>{item.quantity}</p>
 
-                {/* Subtotal */}
                 <p className="font-medium">{formatCurrency(item.subtotal)}</p>
               </div>
             ))}
-
-            {console.log(store)}
-            {/* Shipping */}
             <div className="flex justify-between pt-3 items-center text-sm mt-4">
               <div>
                 <p className="font-medium">
@@ -107,7 +102,6 @@ export default function ProductCardByStore({ stores,selectShipment }: Props) {
             />
           </div>
 
-          {/* Shipping Modal */}
         </div>
       ))}
     </div>

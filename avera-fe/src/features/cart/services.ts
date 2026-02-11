@@ -1,7 +1,6 @@
 import { averaApi } from "@/lib/api/axiosClient";
 import { ApiResponse } from "@/lib/api/response";
 import {
-  CartItem,
   CartResponse,
   CartStoreGroup,
   StoreCartItemForm,

@@ -1,11 +1,11 @@
 import TopProductsCarouselSkeleton from "@/components/Skeleton/TopProductCarouselSkeleton";
 import { SectionWrapper } from "@/components/common/section/SectionWrapper";
 import { BaseCarousel } from "@/components/common/carousel/BaseCarousel";
-import { ProductHomepage } from "../../types";
+import { ProductBase } from "../../types";
 import ProductCard from "../Homepage/ProductCard";
 
 interface Props {
-  products: ProductHomepage[];
+  products: ProductBase[];
   loading: boolean;
   categorySlug: string;
 }

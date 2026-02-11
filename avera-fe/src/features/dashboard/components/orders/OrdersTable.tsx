@@ -8,20 +8,25 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { OrderStatus } from "@/lib/dummyData";
+import { Order, OrderStatus } from "@/features/order/types";
+import { formatCurrency } from "@/lib/utils/formatCurrency";
 
 const statusColor: Record<OrderStatus, string> = {
-  pending: "bg-yellow-100 text-yellow-800",
-  paid: "bg-green-100 text-green-800",
-  shipped: "bg-blue-100 text-blue-800",
-  cancelled: "bg-red-100 text-red-800",
+  [OrderStatus.awaiting_payment]: "bg-yellow-100 text-yellow-800",
+  [OrderStatus.paid]: "bg-green-100 text-green-800",
+  [OrderStatus.shipped]: "bg-blue-100 text-blue-800",
+  [OrderStatus.cancelled]: "bg-red-100 text-red-800",
+  [OrderStatus.pending]: "bg-gray-100 text-gray-800",
+  [OrderStatus.processing]: "bg-purple-100 text-purple-800",
+  [OrderStatus.completed]: "bg-teal-100 text-teal-800",
 };
+
 export function OrdersTable({
   orders,
   sort,
   onSortChange,
 }: {
-  orders: any[];
+  orders: Order[];
   sort: "asc" | "desc";
   onSortChange: (v: "asc" | "desc") => void;
 }) {
@@ -48,14 +53,14 @@ export function OrdersTable({
           {orders.map((order) => (
             <TableRow key={order.id}>
               <TableCell className="font-medium">{order.id}</TableCell>
-              <TableCell>{order.customer}</TableCell>
+              <TableCell>{order.id}</TableCell>
               <TableCell>
                 <Badge className={statusColor[order.status]}>
                   {order.status}
                 </Badge>
               </TableCell>
-              <TableCell>Rp {order.total.toLocaleString("id-ID")}</TableCell>
-              <TableCell>{order.date}</TableCell>
+              <TableCell>{formatCurrency(order.total_price)}</TableCell>
+              <TableCell>{order.created_at}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -2,9 +2,6 @@ import { notFound } from "next/navigation";
 import ProductClient from "./ProductClient";
 import { getProductByCompound } from "@/features/product/services";
 
-interface Props {
-  params: { compound: string };
-}
 export default async function ProductPage({
   params,
 }: {

@@ -19,6 +19,7 @@ class AuthenticateWithJwt
      */
     public function handle(Request $request, Closure $next): Response
     {
+        
         $header = $request->header('Authorization');
 
         if (!$header || ! str_starts_with($header, 'Bearer ')) {

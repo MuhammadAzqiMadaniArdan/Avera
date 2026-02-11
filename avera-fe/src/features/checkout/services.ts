@@ -23,3 +23,13 @@ export async function orderCheckout(checkoutId : string): Promise<
   return response.data;
 }
 
+interface snapToken {'snap_token' : string}
+
+export async function getSnapToken(orderId : string): Promise<
+  ApiResponse<snapToken>
+> {
+  const response = await averaApi.post(`/api/v1/order/${orderId}/payment/snap`);
+  return response.data;
+}
+
+

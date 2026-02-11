@@ -1,7 +1,7 @@
 "use client";
 
 import TopProductsCarouselSkeleton from "@/components/Skeleton/TopProductCarouselSkeleton";
-import { ProductHomepage } from "@/features/product/types";
+import { ProductBase } from "@/features/product/types";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import TopProductCard from "./TopProductCard";
 
 const SCROLL_COUNT = 6;
 interface Props {
-  products: ProductHomepage[];
+  products: ProductBase[];
   loading: boolean;
 }
 export function TopProductsCarousel({ products, loading }: Props) {

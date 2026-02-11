@@ -5,15 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { PriceInput } from "./PriceInput";
-interface StepFormsUpdateProps {
-  activeTab: string;
-  name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
-  description: string;
-  setDescription: React.Dispatch<React.SetStateAction<string>>;
-  photos: string[];
-  setPhotos: React.Dispatch<React.SetStateAction<string[]>>;
-}
+
 export function StepFormsUpdate({ activeTab }: { activeTab: string }) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");

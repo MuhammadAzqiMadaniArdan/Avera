@@ -2,8 +2,12 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-
-export function AddressDeleteDialog({ open, onClose, onConfirm }: any) {
+interface Props {
+  open : boolean,
+  onClose: () => void,
+  onConfirm: () => Promise<void>
+}
+export function AddressDeleteDialog({ open, onClose, onConfirm }: Props) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-sm">

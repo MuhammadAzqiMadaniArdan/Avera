@@ -25,7 +25,7 @@ export default function OauthButton({ label = "Login" }: OauthButtonProps) {
       scope: "avera.read",
     });
 
-    window.location.href = `http://localhost:8000/oauth/authorize?${params.toString()}`;
+    window.location.href = `${process.env.NEXT_PUBLIC_AUTH_API_BASE_URL}/oauth/start?${params.toString()}`;
   };
 
   return (

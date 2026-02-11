@@ -10,7 +10,7 @@ interface param {
 export async function getProductReviews(productId : string,param : param): Promise<
   ApiResponse<ReviewBase[]>
 > {
-  const response = await averaApi.get(`/api/v1/product/${productId}/reviews?page=${param.page}&rating=${param.rating}`);
+  const response = await averaApi.get(`/api/v1/products/${productId}/reviews?page=${param.page}&rating=${param.rating}`);
   return response.data;
 }
 

@@ -8,7 +8,6 @@ import { Tabs } from "@/features/product/components/ProductCreate/Tabs";
 import { StepFormsUpdate } from "@/features/product/components/ProductDraft/StepFormsUpdate";
 import { getProductByCompound } from "@/features/product/services";
 import { StepNavbar } from "@/features/product/components/StepNavbar";
-import { Product, ProductDraft } from "@/features/product/types";
 import { notify } from "@/lib/toast/notify";
 
 export default function DraftProductPage() {
@@ -18,15 +17,15 @@ export default function DraftProductPage() {
   const [step, setStep] = useState(1);
 
   const [activeTab, setActiveTab] = useState("info");
-  const [product, setProduct] = useState<Product>([]);
-  const [draft, setDraft] = useState<ProductDraft>({
-  id: "",
-  storeId: "",
-  categoryId: "",
-  name: "",
-  description: "",
-  status: "draft",
-});
+  // const [product, setProduct] = useState<Product>([]);
+  //   const [draft, setDraft] = useState<ProductDraft>({
+  //   id: "",
+  //   storeId: "",
+  //   categoryId: "",
+  //   name: "",
+  //   description: "",
+  //   status: "draft",
+  // });
 
   // ======================
   // State Form (terpusat)
@@ -45,7 +44,7 @@ export default function DraftProductPage() {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [sku, setSku] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   // ======================
   // RecommendedCard logic
@@ -57,23 +56,23 @@ export default function DraftProductPage() {
   // cek apakah semua kondisi valid
   const isAllValid = isPhotoUploaded && isNameValid && isDescriptionValid;
 
-  const getProduct = async () => {
-    try {
-      const res = await getProductByCompound(compound);
-      setDraft(res.data);
-      notify.success(res.message ?? "Berhasll mengambil produk");
-    } catch (err) {
-      notify.error(err?.response?.message ?? "Gagal mengambil produk");
-    } finally {
-      setLoading(false);
-    }
-  };
   // ======================
   // Fetch dummy product data
   // ======================
   useEffect(() => {
     if (!compound) return;
-    getProduct()
+    const getProduct = async () => {
+      try {
+        const res = await getProductByCompound(compound);
+        // setDraft(res.data);
+        notify.success(res.message ?? "Berhasll mengambil produk");
+      } catch (err) {
+        notify.error(err?.response?.message ?? "Gagal mengambil produk");
+      } finally {
+        // setLoading(false);
+      }
+    };
+    getProduct();
   }, [compound]);
 
   // ======================

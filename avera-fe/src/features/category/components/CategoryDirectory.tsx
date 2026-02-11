@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { categories } from "@/lib/categories";
+import { CategoryTree } from "../types";
 
-export default function CategoryDirectory() {
+export default function CategoryDirectory({categories} : {categories : CategoryTree[]}) {
   const grouped = categories.reduce<Record<string, typeof categories>>(
     (acc, cat) => {
       const letter = cat.name[0].toUpperCase();
@@ -26,7 +26,6 @@ export default function CategoryDirectory() {
             <div className="space-y-12">
               {grouped[letter].map((cat) => (
                 <div key={cat.slug}>
-                  {/* CATEGORY TITLE */}
                   <Link
                     href={`/category/${cat.slug}`}
                     className="text-lg font-semibold hover:text-primary"
@@ -36,7 +35,7 @@ export default function CategoryDirectory() {
 
                   {/* SUB CATEGORY */}
                   <ul className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-2 gap-x-4 text-sm text-muted-foreground">
-                    {cat.subCategories.map((sub) => (
+                    {cat?.children.map((sub) => (
                       <li key={sub.slug}>
                         <Link
                           href={`/category/${sub.slug}`}

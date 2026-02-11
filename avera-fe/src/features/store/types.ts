@@ -11,11 +11,6 @@ export interface ProductBase {
 }
 
 /**
- * Untuk homepage / listing
- */
-export interface ProductHomepage extends ProductBase {}
-
-/**
  * Untuk detail product
  */
 export interface Product extends ProductBase {

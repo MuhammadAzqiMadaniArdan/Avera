@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { getAccessToken, setAccessToken } from "@/lib/auth/token";
+import { setAccessToken } from "@/lib/auth/token";
 import { getUserProfile } from "@/features/profile/services";
 import { UserProfile } from "@/features/profile/types";
 

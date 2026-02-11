@@ -11,12 +11,14 @@ use App\Modules\Order\Repositories\OrderItemRepository;
 use App\Modules\Order\Repositories\OrderRepository;
 use App\Modules\Order\Repositories\PaymentRepository;
 use App\Modules\Payment\Models\Payment;
+use App\Modules\Payment\Repositories\PaymentRepository as RepositoriesPaymentRepository;
 use App\Modules\Product\Repositories\ProductRepository;
 use App\Modules\Voucher\Repositories\UserVoucherRepository;
 use App\Traits\CacheVersionable;
 use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Midtrans\Snap;
 
 class PaymentService
@@ -25,7 +27,7 @@ class PaymentService
     use CacheVersionable;
 
     public function __construct(
-        private PaymentRepository $paymentRepository,
+        private RepositoriesPaymentRepository $paymentRepository,
         private CartRepository $cartRepository,
         private UserVoucherRepository $userVoucherRepository,
         private CheckoutService $checkoutService,
@@ -45,11 +47,12 @@ class PaymentService
 
     public function createSnapToken(Order $order): string
     {
+        Log::info('order',[$order]);
         $params = [
-            'transaction_detail' =>
+            'transaction_details' =>
             [
-                'order_number' => $order->order_number,
-                'gross_amount' => (int) $order->total,
+                'order_id' => $order->id,
+                'gross_amount' => (int) $order->total_price,
             ],
             'customer_details' =>
             [
@@ -60,22 +63,36 @@ class PaymentService
             [
                 'credit_card',
                 'gopay',
-                'shoppepay',
+                'shopeepay',
                 'bank_transfer',
             ],
         ];
 
+        try {
+            $snapToken = Snap::getSnapToken($params);
+        } catch (\Exception $e) {
+            // log untuk debugging
+            Log::error('Midtrans Snap Error', [
+                'message' => $e->getMessage(),
+                'params' => $params,
+            ]);
+            throw new \Exception('Gagal membuat Snap Token. Cek log Midtrans.');
+        }
         $this->paymentRepository->store([
             'order_id' => $order->id,
+            'snap_token' => $snapToken,
             'payment_gateway' => 'midtrans',
             'transaction_id' => $order->id,
             'gross_amount' => $order->total_price,
             'status' => 'pending',
         ]);
 
-        return Snap::getSnapToken($params);
+        return $snapToken;
     }
-
+    public function getSnapToken(string $id): ?Payment
+    {
+        return $this->paymentRepository->getSnapToken($id);
+    }
     public function callback(array $data): void
     {
         $signatureKey = hash(

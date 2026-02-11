@@ -16,18 +16,18 @@ export interface ProductResponse {
 
 // Buat product baru
 export async function createProduct(payload: ProductCreatePayload): Promise<ProductResponse> {
-  const response = await averaApi.post("/api/v1/products", payload);
+  const response = await averaApi.post("/api/v1/productss", payload);
   return response.data;
 }
 
 // Ambil detail product
 export async function getProductById(productId: string): Promise<ProductResponse> {
-  const response = await averaApi.get(`/api/v1/products/${productId}`);
+  const response = await averaApi.get(`/api/v1/productss/${productId}`);
   return response.data;
 }
 // Ambil detail product
 export async function getProductByCompound(compound: string): Promise<ProductResponse> {
-  const response = await averaApi.get(`/api/v1/product/${compound}`);
+  const response = await averaApi.get(`/api/v1/products/${compound}`);
   return response.data;
 }
 
@@ -39,6 +39,6 @@ export async function getProductSeller(): Promise<ProductResponse> {
 
 // Update product
 export async function updateProduct(productId: string, payload: Partial<ProductCreatePayload>): Promise<ProductResponse> {
-  const response = await averaApi.put(`/api/v1/products/${productId}`, payload);
+  const response = await averaApi.put(`/api/v1/productss/${productId}`, payload);
   return response.data;
 }

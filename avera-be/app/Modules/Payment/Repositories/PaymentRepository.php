@@ -6,11 +6,15 @@ use App\Exceptions\ResourceNotFoundException;
 use App\Helpers\UserContext;
 use App\Modules\Payment\Contracts\PaymentRepositoryInterface;
 use App\Modules\Payment\Models\Payment;
+use App\Traits\CacheVersionable;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 
 class PaymentRepository implements PaymentRepositoryInterface
 {
+    use CacheVersionable;
     public function __construct(
         private Payment $model
     ) {}
@@ -108,6 +112,23 @@ class PaymentRepository implements PaymentRepositoryInterface
                 fn($q) => $q->orderByDesc('created_at')
             )->paginate($perPage);
     }
+    public function getUserPayment(string $id): ?LengthAwarePaginator
+    {
+        $version = $this->versionKey('orders');
+        return Cache::remember(
+            "payment:list:userId:{$id}:v{$version}",
+            now()->addMinutes(5),
+            fn() => $this->model->where('user_id', $id)->orderBy('updated_at', 'DESC')->paginate(5)
+        );
+    }
+    public function getSnapToken(string $orderId): ?Payment
+    {
+        $payment = $this->model->where('order_id', $orderId)->first();
+        if (!$payment) {
+            throw new ResourceNotFoundException('Payment');
+        }
+        return $payment;
+    }
 
     public function find(int $id): ?Payment
     {
@@ -116,7 +137,7 @@ class PaymentRepository implements PaymentRepositoryInterface
     public function findOrFail(string $id): Payment
     {
         $payment = $this->model
-            ->with(['items', 'shipment', 'payment','items.review','items.product'])
+            ->with(['items', 'shipment', 'payment', 'items.review', 'items.product'])
             ->find($id);
 
         if (!$payment) {

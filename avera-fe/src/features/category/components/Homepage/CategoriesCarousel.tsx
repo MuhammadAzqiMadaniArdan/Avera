@@ -5,10 +5,10 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { CategoryHomepage } from "../../types";
+import { CategoryBase } from "../../types";
 
 interface CategoriesCarouselProps {
-  categories: CategoryHomepage[];
+  categories: CategoryBase[];
 }
 
 export function CategoriesCarousel({ categories }: CategoriesCarouselProps) {
@@ -46,12 +46,12 @@ export function CategoriesCarousel({ categories }: CategoriesCarouselProps) {
   const visibleColumns = getVisibleColumns();
 
   // Combine every 2 items to 1 column (2 rows)
-  const columns: (CategoryHomepage | null)[][] = [];
+  const columns: (CategoryBase | null)[][] = [];
   for (let i = 0; i < categories.length; i += 2) {
     columns.push(categories.slice(i, i + 2));
   }
 
-  const renderColumn = (column: (CategoryHomepage | null)[], idx: number) => (
+  const renderColumn = (column: (CategoryBase | null)[], idx: number) => (
     <div key={idx} className="flex flex-col gap-2 items-center">
       {column.map((cat, i) =>
         cat ? (

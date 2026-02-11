@@ -3,13 +3,13 @@
 import Link from "next/link";
 import ProductCard from "./ProductCard";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCardSkeleton";
-import { ProductHomepage } from "../../types";
+import { ProductBase } from "../../types";
 
 type ProductGridProps = {
   title?: string;
   seeMoreUrl?: string;
 
-  products: ProductHomepage[];
+  products: ProductBase[];
   loading?: boolean;
 
   categorySlug?: string;

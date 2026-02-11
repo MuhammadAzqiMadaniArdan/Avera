@@ -7,7 +7,7 @@ import { notify } from "@/lib/toast/notify";
 import { useRouter } from "next/navigation";
 
 export function useCart() {
-  const router = useRouter()
+  const router = useRouter();
   const [cart, setCart] = useState<CartStoreGroup[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -136,13 +136,10 @@ export function useCart() {
         loading: "Melakukan Checkout...",
         success: "Berhasil Melakukan Checkout !",
         error: (err) =>
-          err?.response?.data?.message ??
-          "Gagal Melakukan Checkout",
+          err?.response?.data?.message ?? "Gagal Melakukan Checkout",
       });
       router.push("/checkout");
-    } catch (error) {
-
-    }
+    } catch {}
   };
 
   // Delete dialog functions

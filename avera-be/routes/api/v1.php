@@ -10,6 +10,7 @@ use App\Modules\Location\Http\Controllers\ProvinceController;
 use App\Modules\Order\Http\Controllers\OrderController;
 use App\Modules\Order\Http\Controllers\ReviewController;
 use App\Modules\Order\Http\Controllers\ShipmentController;
+use App\Modules\Payment\Http\Controllers\PaymentController;
 use App\Modules\Product\Http\Controllers\ProductController;
 use App\Modules\Product\Http\Controllers\ProductImageController;
 use App\Modules\Product\Http\Controllers\ProductSellerController;
@@ -21,7 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('isGuest')->group(function () {
-    Route::prefix('product')->name('product.')->group(function () {
+    Route::prefix('products')->name('products.')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('index');
         Route::get('/random', [ProductController::class, 'indexRandom'])->name('index.random');
         Route::get('/top', [ProductController::class, 'indexTop'])->name('top');
@@ -77,7 +78,7 @@ Route::middleware(['oauth.jwt', 'ensure.user', 'throttle:api'])->group(function 
         Route::get('/{id}', [CategoryController::class, 'show'])->name('show');
         Route::post('/', [CategoryController::class, 'store'])->name('store');
     });
-    Route::prefix('product')->name('product.')->group(function () {
+    Route::prefix('products')->name('products.')->group(function () {
         Route::post('/', [ProductController::class, 'store'])->name('store');
         Route::patch('/', [ProductController::class, 'update'])->name('update');
         Route::delete('/', [ProductController::class, 'destroy'])->name('destroy');
@@ -124,9 +125,10 @@ Route::middleware(['oauth.jwt', 'ensure.user', 'throttle:api'])->group(function 
         Route::patch('/{id}', [OrderController::class, 'update'])->name('update');
         Route::delete('/', [OrderController::class, 'destroy'])->name('destroy');
         Route::post('/payment/callback', [OrderController::class, 'paymentCallback'])->name('payment.callbackn');
+        Route::post('/{order_id}/payment/snap', [PaymentController::class, 'getSnapToken'])->name('payment.snap');
     });
     Route::middleware('isSeller')->prefix('seller')->name('seller.')->group(function () {
-        Route::prefix('product')->name('product.')->group(function () {
+        Route::prefix('products')->name('products.')->group(function () {
             Route::get('/', [ProductSellerController::class, 'index'])->name('index');
             Route::get('/{compound}', [ProductSellerController::class, 'show'])->name('show');
             Route::post('/', [ProductSellerController::class, 'store'])->name('store');
@@ -155,7 +157,7 @@ Route::middleware(['oauth.jwt', 'ensure.user', 'throttle:api'])->group(function 
             Route::delete('/{id}', [CategoryController::class, 'destroyAdmin'])->name('destroy');
             Route::delete('/{id}/force', [CategoryController::class, 'destroyPermanent'])->name('destroy.permanent');
         });
-        Route::prefix('product')->name('product.')->group(function () {
+        Route::prefix('products')->name('products.')->group(function () {
             Route::get('/', [CategoryController::class, 'indexAdmin'])->name('index');
             Route::get('/trashed', [CategoryController::class, 'indexByTrashed'])->name('index.trashed');
             Route::post('/', [CategoryController::class, 'storeAdmin'])->name('store');

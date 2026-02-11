@@ -30,14 +30,13 @@ export default function StorePage() {
         // contoh redirect
         // router.push(`/store/${res.data?.slug}`);
       } else {
-        // ❌ FAILED tapi 200 OK
         alert(res.message);
       }
-    } catch (error: any) {
+    } catch (error) {
       const apiError = error.response?.data;
 
       if (apiError?.errors) {
-        console.log(apiError.errors.name?.[0]); // error per field
+        console.log(apiError.errors.name?.[0]); 
       }
 
       alert(apiError?.message ?? "Gagal membuat store");
@@ -45,14 +44,13 @@ export default function StorePage() {
   };
   const isUserStore = async () => {
     try {
-      const res = await getStoreBySeller();
-      const data = res.data;
+      await getStoreBySeller();
       setIsStore(true);
     } catch (error) {
       const apiError = error.response?.data;
 
-      if (apiError?.code === 404 | apiError?.code === 401) {
-        console.log(apiError.code); // error per field
+      if (apiError?.code === 404 || apiError?.code === 401) {
+        console.log(apiError.code);
         setIsStore(false);
       }
     }

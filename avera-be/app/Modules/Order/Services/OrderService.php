@@ -50,6 +50,7 @@ class OrderService implements OrderServiceInterface
         $filters['user_id'] = $userId;
         return $this->filter($filters);
     }
+    
     public function find(string $id): ?Order
     {
         return $this->orderRepository->findOrFail($id);
@@ -74,11 +75,14 @@ class OrderService implements OrderServiceInterface
                     'gross_amount' => $order->total_price
                 ]);
                 $this->markCodProcessed($order);
-                return  ['order' => $order, 'snap_token' => null, 'client_key' => null];
+                return  ['order_id' => $order->id, 'snap_token' => false];
             }
 
             $snapToken = $this->paymentService->createSnapToken($order);
-            $result = ['order' => $order, 'snap_token' => $snapToken, 'client_key' => config('midtrans.client_key')];
+            $result = [
+                'order_id' => $order->id,
+                'snap_token' => true,
+            ];
             return $result;
         });
     }

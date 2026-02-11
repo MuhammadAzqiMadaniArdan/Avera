@@ -3,8 +3,6 @@
 import { Navbar } from "@/components/Navbar";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { Suspense } from "react";
-import { TopProductsCarousel } from "@/features/product/components/Homepage/TopProductsCarousel";
-import Link from "next/link";
 import ProductGrid from "@/features/product/components/Homepage/ProductGrid";
 import CategoriesBaseCarousel from "@/features/category/components/Homepage/CategoriesBaseCarousel";
 import useHomepage from "./hooks";

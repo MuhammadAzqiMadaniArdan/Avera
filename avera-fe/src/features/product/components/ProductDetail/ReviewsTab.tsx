@@ -89,7 +89,7 @@ export default function ReviewsTab({
                     className="flex items-center gap-3"
                   >
                     <Image
-                      src={r.user.avatar ?? "http://loremflickr.com/80/80"}
+                      src={r.user.avatar ?? "https://loremflickr.com/80/80"}
                       alt={r.user.username}
                       width={40}
                       height={40}

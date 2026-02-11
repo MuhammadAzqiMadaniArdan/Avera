@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('order_id')->constrained()->cascadeOnDelete();
+            $table->string('snap_token')->nullable();
             $table->string('payment_method')->nullable();
             // cod, bank_transfer, ewallet, qris
             $table->string('payment_gateway')->nullable();

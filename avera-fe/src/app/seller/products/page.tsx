@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ProductGridCard } from "@/features/product/components/ProductGridCard";
+import { ProductGridCard } from "@/features/product/components/ProductDraft/ProductGridCard";
 import { getProductSeller } from "@/features/product/services";
 import { ProductSellerIndex } from "@/features/product/types";
 import { TABS } from "@/lib/componentData";
@@ -96,7 +96,7 @@ const [products, setProducts] = useState<ProductSellerIndex[]>([]);
       <div className="flex gap-6 border-b text-sm">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.key;
-
+          if(loading) return (<p key={tab.key}>Loading...</p>)
           return (
             <button
               key={tab.key}

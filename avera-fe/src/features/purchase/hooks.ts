@@ -23,7 +23,7 @@ export function useMyPurchase() {
       try {
         const res = await getUserPurchase();
         setPurchases(res.data);
-      } catch (error: any) {
+      } catch (error) {
         notify.error(
           error?.response?.data?.message ?? "Gagal mengambil data order"
         );

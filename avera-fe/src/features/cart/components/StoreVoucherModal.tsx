@@ -17,7 +17,7 @@ interface Props {
   vouchers: Voucher[];
   open: boolean;
   onClose: () => void;
-  selectedVoucherId?: number;
+  selectedVoucherId: number | null;
   onSelect: (voucherId: number | null) => void;
   storeIcon?: string;
 }

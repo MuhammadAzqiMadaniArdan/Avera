@@ -21,8 +21,9 @@ import {
 } from "@/components/ui/dialog";
 
 import { Button } from "@/components/ui/button";
+import {  ProductSeller } from "../../types";
 
-export function ProductGridCard({ product }: { product: any }) {
+export function ProductGridCard({ product }: { product: ProductSeller }) {
   const [openArchive, setOpenArchive] = useState(false);
 
   return (
@@ -39,10 +40,6 @@ export function ProductGridCard({ product }: { product: any }) {
         {/* NAME */}
         <p className="font-medium line-clamp-2">{product.name}</p>
 
-        {/* SKU */}
-        <p className="text-xs text-muted-foreground">
-          SKU Induk: {product.sku}
-        </p>
 
         {/* PRICE */}
         <p className="mt-1 font-semibold">

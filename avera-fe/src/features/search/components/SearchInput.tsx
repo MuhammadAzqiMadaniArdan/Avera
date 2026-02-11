@@ -30,7 +30,7 @@ export function SearchInput() {
           setStoreMatch(res.data[0] ?? null);
           setShowStoreOption(res.data.length > 0);
         }
-      } catch (err) {
+      } catch {
         if (!cancelled) setStoreMatch(null);
       }
     };
